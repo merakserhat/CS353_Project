@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function MainAppBar() {
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, borderBottom: "1px solid #909192" }}>
             <AppBar position="static">
                 <Toolbar>
                     <Typography
