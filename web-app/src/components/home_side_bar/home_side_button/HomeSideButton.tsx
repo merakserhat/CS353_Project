@@ -10,10 +10,11 @@ interface HomeSideButtonProps {
     isSelected: boolean,
     isInteractive?: boolean,
     isMenuOpen?: boolean,
-    onMenuOpen?: () => void
+    onMenuOpen: () => void
 }
 
 function HomeSideButton(props: HomeSideButtonProps) {
+
     return (
         <Box
             onClick={props.onMenuOpen}

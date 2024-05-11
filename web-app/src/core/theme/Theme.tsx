@@ -8,7 +8,7 @@ const themeOptions = createTheme({
       contrastText: '#e4e6eb',
     },
     secondary: {
-      main: '#ff0000',
+      main: '#0A2947',
     },
     background: {
       default: '#18191a',
@@ -29,6 +29,17 @@ const themeOptions = createTheme({
     },
     body1: {
       fontWeight: 500,
+    },
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'white', 
+          },
+        },
+      },
     },
   },
 });

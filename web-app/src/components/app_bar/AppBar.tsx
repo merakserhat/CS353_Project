@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ProfileButton from '../bar_profile_button/BarProfileButton';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -50,28 +51,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function MainAppBar() {
     return (
-        <Box sx={{ flexGrow: 1, borderBottom: "1px solid #909192" }}>
-            <AppBar position="static">
-                <Toolbar>
+        <AppBar position="static" sx={{ flexGrow: 1, borderBottom: "1px solid #909192", height: "72px" }}>
+            <Toolbar>
+                <Link to="/" style={{textDecoration:"none", color:"inherit"}}>
                     <Typography
-                        variant="h6"
+                        variant="h4"
+                        fontWeight={"bold"}
                         noWrap
                         component="div"
                     >
-                        MUI
+                        BilFint
                     </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                    <ProfileButton name='Serhat' email='serhat.merak@ug.bilkent.edu.tr' />
-                </Toolbar>
-            </AppBar>
-        </Box>
+                </Link>
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
+                <ProfileButton name='Serhat' email='serhat.merak@ug.bilkent.edu.tr' />
+            </Toolbar>
+        </AppBar>
     );
 }
