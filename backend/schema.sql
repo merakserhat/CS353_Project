@@ -116,7 +116,7 @@ CREATE TABLE Chat (
     session_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     trainer_id VARCHAR(36) NOT NULL,
-    start_date INT,
+    start_date DATETIME,
     PRIMARY KEY(chat_id, session_id, fe_id, trainer_id),
     FOREIGN KEY(session_id, fe_id, trainer_id) references TrainerSession(session_id, fe_id, trainer_id)
 );
@@ -129,7 +129,7 @@ CREATE TABLE Message (
     trainer_id VARCHAR(36) NOT NULL,
     content VARCHAR(255),
     date_time DATETIME,
-    owner VARCHAR(255),
+    owner_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(
         message_id,
         chat_id,
@@ -397,11 +397,11 @@ VALUES
 (1, 3, 1, '2024-05-13 10:00:00', '2024-05-13 11:00:00'),
 (2, 4, 2, '2024-05-14 15:00:00', '2024-05-14 16:00:00');
 
--- -- Inserting values into the Chat table
--- INSERT INTO Chat (chat_id, session_id, fe_id, trainer_id, start_date) 
--- VALUES 
--- (1, 1, 3, 1, '2024-05-13'),
--- (2, 2, 4, 2, '2024-05-14');
+-- Inserting values into the Chat table
+INSERT INTO Chat (chat_id, session_id, fe_id, trainer_id, start_date) 
+VALUES 
+(1, 1, 3, 1, '2024-05-13'),
+(2, 2, 4, 2, '2024-05-14');
 
 -- -- Inserting values into the Message table
 -- INSERT INTO Message (message_id, chat_id, session_id, fe_id, trainer_id, content, date_time, owner) 

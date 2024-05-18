@@ -11,6 +11,7 @@ from exercise_log import exercise_log
 from fitness_goal import fitness_goal
 from achievement import achievement
 from workout import workout
+from chat import chat
 
 CORS(db)
 
@@ -20,6 +21,7 @@ db.register_blueprint(exercise_log)
 db.register_blueprint(fitness_goal)
 db.register_blueprint(achievement)
 db.register_blueprint(workout)
+db.register_blueprint(chat)
 
 @db.route('/')
 
