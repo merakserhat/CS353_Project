@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import MySQLdb.cursors
 from database import connect
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
 
 payment = Blueprint('fitness_goal', __name__, url_prefix='/payment')
@@ -17,16 +17,16 @@ def pay():
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Fitness enthusiast not found!'})
+        return jsonify({'message': 'Fitness enthusiast not found!'}), 403
     
     cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (trainer_id,))
     
     trainer = cursor.fetchone()
     if trainer is None:
-        return jsonify({'message': 'Trainer not found!'})
+        return jsonify({'message': 'Trainer not found!'}), 403
     
     amount = request.json['amount']
-    payment_time = datetime.now()
+    payment_time = datetime.now() + timedelta(hours=3)
     
     cursor.execute('INSERT INTO Payment(payment_id, amount, date_time, fe_id, trainer_id) VALUES (%s, %s, %s, %s, %s)', (payment_id, amount, payment_time, fe_id, trainer_id))
     connection.commit()
@@ -42,12 +42,12 @@ def list_payment():
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Fitness enthusiast not found!'})
+        return jsonify({'message': 'Fitness enthusiast not found!'}), 403
     
     cursor.execute('SELECT * FROM Payment WHERE fe_id = %s', (fe_id,))
     payments = cursor.fetchall()
     if payments is None:
-        return jsonify({'message': 'No Payments were made!'})
+        return jsonify({'message': 'No Payments were made!'}), 403
     
     cursor.close()  
     return jsonify({'Payments': payments,})
@@ -60,12 +60,12 @@ def list_payment_trainer():
     cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (trainer_id,))
     trainer = cursor.fetchone()
     if trainer is None:
-        return jsonify({'message': 'Trainer not found!'})
+        return jsonify({'message': 'Trainer not found!'}), 403
     
     cursor.execute('SELECT * FROM Payment WHERE trainer_id = %s', (trainer_id,))
     payments = cursor.fetchall()
     if payments is None:
-        return jsonify({'message': 'No Payments were made!'})
+        return jsonify({'message': 'No Payments were made!'}), 403
     
     cursor.close()  
     return jsonify({'Payments': payments,})

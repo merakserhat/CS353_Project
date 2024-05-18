@@ -16,12 +16,12 @@ def create():
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Fitness enthusiast not found!'})
+        return jsonify({'message': 'Fitness enthusiast not found!'}), 403
     
     cursor.execute('SELECET * FROM FitnessGoal WHERE goal_id = %s', (goal_id,))
     goal = cursor.fetchone()
     if goal is None:
-        return jsonify({'message': 'Fitness Goal not found!'})
+        return jsonify({'message': 'Fitness Goal not found!'}), 403
     
     name = goal['name']
     target_region = goal['target_region']
@@ -44,12 +44,12 @@ def list():
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Fitness enthusiast not found!'})
+        return jsonify({'message': 'Fitness enthusiast not found!'}), 403
 
     cursor.execute('SELECT * FROM Achievement WHERE fe_id = %s', (fe_id,))
     achievements = cursor.fetchall()
     if achievements is None:
-        return jsonify({'message': 'No Achievements were set!'})
+        return jsonify({'message': 'No Achievements were set!'}), 403
     
     cursor.close()  
     return jsonify({'Achievement': achievements,})

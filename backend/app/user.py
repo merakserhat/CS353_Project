@@ -63,7 +63,7 @@ def register_fe():
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM User WHERE email = %s', (email,))
     if cursor.fetchone() is not None:
-        return jsonify({'message': 'User already exists!'})
+        return jsonify({'message': 'User already exists!'}), 403
 
     # Insert user and fitness enthusiast data
     cursor.execute('INSERT INTO User (user_id, email, password, first_name, middle_name, last_name) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, email, password, first_name, middle_name, last_name))
@@ -97,7 +97,7 @@ def register_trainer():
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM User WHERE email = %s', (email,))
     if cursor.fetchone() is not None:
-        return jsonify({'message': 'User already exists!'})
+        return jsonify({'message': 'User already exists!'}), 403
 
     # Insert user and trainer data
     cursor.execute('INSERT INTO User (user_id, email, password, first_name, middle_name, last_name) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, email, password, first_name, middle_name, last_name))

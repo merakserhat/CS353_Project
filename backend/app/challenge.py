@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import MySQLdb.cursors
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from database import connect
 
 challenge = Blueprint('workout', __name__, url_prefix='/challenge')
@@ -32,12 +32,12 @@ def enter_challenge():
     cursor.execute('SELECT * FROM Challenge WHERE challenge_id = %s', (challenge_id,))
     challenge = cursor.fetchone()
     if challenge is None:
-        return jsonify({'message': 'Challenge not found!'})
+        return jsonify({'message': 'Challenge not found!'}), 403
     
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Fitness enthusiast not found!'})
+        return jsonify({'message': 'Fitness enthusiast not found!'}), 403
     
     cursor.execute('INSERT INTO enters_challenge(fe_id, challenge_id) VALUES (%s, %s)', (fe_id, challenge_id))
     connection.commit()
@@ -47,11 +47,11 @@ def enter_challenge():
 @challenge.route('/list', methods=['GET'])
 def list_challenge():
     connection = connect()
-    time = datetime.now()
+    time = datetime.now() + timedelta(hours=3)
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Challenge WHERE end_date > %s', (time,))
     challenges = cursor.fetchall()
     if challenges is None:
-        return jsonify({'message': 'No challenges found!'})
+        return jsonify({'message': 'No challenges found!'}), 403
     cursor.close()
     return jsonify({'Challenges': challenges,})
