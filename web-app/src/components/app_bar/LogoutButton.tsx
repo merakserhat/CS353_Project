@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 const LogoutButton: React.FC = () => {
+    const { setUserId } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        setUserId(undefined);
         navigate('/login');
     };
 

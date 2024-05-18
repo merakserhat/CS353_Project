@@ -12,58 +12,79 @@ import { Box } from "@mui/system";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-export interface ExerciseModel {
-    name: string,
-    sets: number,
-    reps: number
-}
+import { KeepsExerciseModel } from "../../data/models/KeepsExerciseModel";
 
 function WorkoutCard() {
     const [isCompleted, setCompleted] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const shoulderExercises: ExerciseModel[] = [
+    const shoulderExercises: KeepsExerciseModel[] = [
         {
-            name: "Shoulder Press",
+            exerciseId: "1",
             sets: 3,
-            reps: 12
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
         {
-            name: "Dumbbell Lateral Raise",
+            exerciseId: "1",
             sets: 3,
-            reps: 15
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
         {
-            name: "Front Raise",
+            exerciseId: "1",
             sets: 3,
-            reps: 15
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
         {
-            name: "Arnold Press",
+            exerciseId: "1",
             sets: 3,
-            reps: 10
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
         {
-            name: "Shoulder Press",
+            exerciseId: "1",
             sets: 3,
-            reps: 12
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
         {
-            name: "Dumbbell Lateral Raise",
+            exerciseId: "1",
             sets: 3,
-            reps: 15
+            reps: 12,
+            data: {
+                description: "A compound exercise that targets the chest, shoulders, and triceps.",
+                exercise_id: "1",
+                exercise_name: "Bench Press (Barbell or Dumbbell)",
+                target_region: "Chest",
+            }
         },
-        {
-            name: "Front Raise",
-            sets: 3,
-            reps: 15
-        },
-        {
-            name: "Arnold Press",
-            sets: 3,
-            reps: 10
-        }
     ];
 
     const handleCompleted = (event: any) => {
@@ -75,7 +96,7 @@ function WorkoutCard() {
         // <Link to="/detail" style={{ textDecoration: "none", color: "inherit" }}>
 
         <Box justifyContent={"center"} sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "10px 0" }} >
-            <Card style={{ width: "330px", height: "450px", backgroundColor: "#18191A", padding: "12px" }} onClick={() => {navigate("/detail")}}>
+            <Card style={{ width: "330px", height: "450px", backgroundColor: "#18191A", padding: "12px" }} onClick={() => { navigate("/detail") }}>
                 <CardContent style={{ margin: "10px 0", padding: "0", display: "flex" }}>
                     <Typography variant="h4">Shoulder Workout</Typography>
                     <Box sx={{ display: "flex", alignItems: "center", padding: "10px" }} >

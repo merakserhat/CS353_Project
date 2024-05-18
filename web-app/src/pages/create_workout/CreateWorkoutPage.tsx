@@ -19,7 +19,9 @@ function CreateWorkoutPage() {
                     <Box width={"450px"} height={"100%"}>
                         <CreateWorkoutForm/>
                     </Box>
-                    <Box flexGrow={1} height={"100%"} sx={{backgroundColor:"purple", display: {xs: "none", sm: "none", md: "flex"}}} ></Box>
+                    <Box flexGrow={1} height={"100%"} sx={{backgroundColor:"purple", display: {xs: "none", sm: "none", md: "flex"}}} >
+
+                    </Box>
                 </Box>
             </main>
         </React.Fragment>

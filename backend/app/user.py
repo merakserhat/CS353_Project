@@ -22,7 +22,7 @@ def login_fe():
         return jsonify({'message': 'Invalid credentials!'})
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': fe,})
+    return jsonify({'message': 'Login successful!', 'user': fe,}), 403
 
 @user.route('/login/trainer', methods=['POST'])
 def login_trainer():

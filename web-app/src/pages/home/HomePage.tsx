@@ -9,6 +9,7 @@ import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
 import { getExerciseList, getExerciseLogList, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
+import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 const menuItems = [
     "Workouts",
@@ -18,6 +19,8 @@ const menuItems = [
 
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
+    const { setExercises } = React.useContext(GlobalContext);
+
 
     React.useEffect(() => {
         // postLoginFe("serhat", "12345");
@@ -25,8 +28,9 @@ function HomePage() {
             // const response: ApiResponse<any> = await postLoginTrainer("orhunaysan3b@gmail.com", "password1");
             // console.log(response.data.user_id);
 
-            // const response: ApiResponse<ExerciseModel[]> = await getExerciseList();
-            // console.log("exercise", response.data[0].target_region);
+            const exerciseList: ApiResponse<ExerciseModel[]> = await getExerciseList();
+            setExercises(exerciseList.data);
+            console.log("exercise", exerciseList.data);
 
             // const response: ApiResponse<ExerciseLogModel[]> = await getExerciseLogList("3");
             // console.log("exercise", response.data[0]);
