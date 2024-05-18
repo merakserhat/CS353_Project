@@ -8,6 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ProfileButton from '../bar_profile_button/BarProfileButton';
 import { Link } from 'react-router-dom';
+import LogoutButton from './LogoutButton';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -73,6 +74,7 @@ export default function MainAppBar() {
                     />
                 </Search>
                 <ProfileButton name='Serhat' email='serhat.merak@ug.bilkent.edu.tr' />
+                <LogoutButton />
             </Toolbar>
         </AppBar>
     );

@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SportWomen from '../../assets/sport_women.png';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 
 function Copyright(props: any) {
@@ -32,6 +33,8 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 function RegisterPage() {
+    const [gender, setGender] = React.useState<string>('');
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -39,6 +42,10 @@ function RegisterPage() {
             email: data.get('email'),
             password: data.get('password'),
         });
+    };
+
+    const handleChange = (event: any) => {
+        setGender(event.target.value as string);
     };
 
     return (
@@ -99,8 +106,38 @@ function RegisterPage() {
                                 label="Password Again"
                                 type="password"
                                 id="password-again"
-                                autoComplete="current-password"
                             />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="height"
+                                label="Height"
+                                type="number"
+                                id="height"
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="weight"
+                                label="Weight"
+                                type="number"
+                                id="weight"
+                            />
+                            <FormControl fullWidth margin="normal" required>
+                                <InputLabel id="gender-label">Gender</InputLabel>
+                                <Select
+                                    labelId="gender-label"
+                                    id="gender"
+                                    value={gender}
+                                    onChange={(event) => {handleChange(event);}}
+                                    label="Gender"
+                                >
+                                    <MenuItem value="woman">Woman</MenuItem>
+                                    <MenuItem value="man">Man</MenuItem>
+                                </Select>
+                            </FormControl>
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
