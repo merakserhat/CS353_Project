@@ -22,7 +22,8 @@ def login_fe():
         return jsonify({'message': 'Invalid credentials!'}), 403
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': fe,})
+    user = {**user, **fe}
+    return jsonify({'message': 'Login successful!', 'user': user,})
 
 @user.route('/login/trainer', methods=['POST'])
 def login_trainer():
@@ -41,7 +42,8 @@ def login_trainer():
         return jsonify({'message': 'Invalid credentials!',}), 403
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': trainer,})
+    user = {**user, **trainer}
+    return jsonify({'message': 'Login successful!', 'user': user,})
 
 @user.route('/register/fe', methods=['POST'])
 def register_fe():
@@ -71,9 +73,12 @@ def register_fe():
     connection.commit()
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
     fe = cursor.fetchone()
+    cursor.execute('SELECT * FROM User WHERE user_id = %s', (user_id,))
+    user = cursor.fetchone()
     cursor.close()
-    print(fe_id, flush=True)
-    return jsonify({'message': 'User registered successfully!', 'user': fe,})
+
+    user = {**user, **fe}
+    return jsonify({'message': 'User registered successfully!', 'user': user,})
 
 @user.route('/register/trainer', methods=['POST'])
 def register_trainer():
