@@ -351,12 +351,12 @@ VALUES
 --         5
 --     );
 
--- -- Inserting values into the FitnessEnthusiast table
--- INSERT INTO
---     FitnessEnthusiast (fe_id, weight, height, age, gender)
--- VALUES
---     (3, 70, 175, 30, 'Male'),
---     (4, 55, 160, 25, 'Female');
+-- Inserting values into the FitnessEnthusiast table
+INSERT INTO
+    FitnessEnthusiast (fe_id, weight, height, age, gender)
+VALUES
+    (3, 70, 175, 30, 'Male'),
+    (4, 55, 160, 25, 'Female');
 
 -- INSERT INTO Admin (admin_id) 
 -- VALUES(5);
