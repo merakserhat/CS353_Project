@@ -45,7 +45,8 @@ def login_trainer():
 
 @user.route('/register/fe', methods=['POST'])
 def register_fe():
-    user_id = 1
+    user_id = uuid.uuid4().int
+    print(user_id, flush=True)
     email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
@@ -74,7 +75,7 @@ def register_fe():
 
 @user.route('/register/trainer', methods=['POST'])
 def register_trainer():
-    user_id = uuid.uuid4().int >> 64
+    user_id = uuid.uuid4().int
     email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
