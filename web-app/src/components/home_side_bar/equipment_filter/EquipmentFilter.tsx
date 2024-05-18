@@ -37,7 +37,7 @@ function EquipmentFilter(props: EquipmentFilterProps) {
                     sx={{
                         fontWeight: "bold", flexGrow: 1
                     }}>Equipments</Typography>
-                {isMenuOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                {!isMenuOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
                 <Box width={"8px"} />
             </Box>
             {equipmantMenu}

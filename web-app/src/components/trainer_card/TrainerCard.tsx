@@ -6,16 +6,20 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
-import Rice from "../../assets/rice.png";
+import Ege from "../../assets/ege.png";
 import { Box } from "@mui/system";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Link } from "react-router-dom";
+import TrainerResMenu from "./TrainerResMenu";
 
 
 function TrainingCard() {
 
     return (
+        // <Link to="/detail" style={{ textDecoration: "none", color: "inherit" }}>
+
         <Box justifyContent={"center"} sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "10px 0" }} >
-            <Card style={{ width: "330px", height: "420px", backgroundColor: "#18191A", padding: "12px" }}>
+            <Card style={{ width: "330px", height: "450px", backgroundColor: "#18191A", padding: "12px" }}>
                 <CardContent style={{ margin: "10px 0", padding: "0" }}>
                     <Box sx={{ display: "flex", alignItems: "center", padding: "10px" }} >
                         <Avatar
@@ -25,7 +29,7 @@ function TrainingCard() {
                             <Typography
                                 variant="body1"
                                 component="div">
-                                Orhun Aysan
+                                Ege Fitness
                             </Typography>
                             <Typography variant="body2" sx={{ color: '#ffffff' }}>
                                 Personal Trainer
@@ -40,18 +44,20 @@ function TrainingCard() {
                 </CardContent>
                 <CardMedia
                     component="img"
-                    image={Rice}
-                    alt="Rice"
+                    image={Ege}
+                    alt="Ege"
                     style={{
                         width: '100%',
-                        height: 'calc(100%- 60px)',
+                        height: '250px',
                         margin: "10px 0"
                     }} />
-                <CardActions style={{ margin: "10px 0", padding: "0" }}>
-                    <Button variant="contained" fullWidth style={{ margin: "0px" }}>ADD TO DIET</Button>
+                <CardActions style={{ margin: "10px 0", padding: "0", display: "flex" }}>
+                    <Button variant="contained" fullWidth style={{ margin: "0px" }}>Reserve</Button>
+                    <TrainerResMenu />
                 </CardActions>
             </Card>
         </Box>
+        // </Link>
     );
 }
 

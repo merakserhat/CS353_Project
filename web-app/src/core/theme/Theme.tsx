@@ -13,6 +13,9 @@ const themeOptions = createTheme({
     background: {
       default: '#18191a',
     },
+    error: {
+      main: "#F0304E",
+    },
     text: {
       primary: '#e4e6eb',
     },
@@ -24,11 +27,15 @@ const themeOptions = createTheme({
       lineHeight: "1.2rem"
 
     },
+    h4: {
+      fontWeight: "bold"
+    },
     subtitle2: {
       fontSize: 12,
     },
     body1: {
       fontWeight: 500,
+      fontSize: 18,
     },
   },
   components: {
