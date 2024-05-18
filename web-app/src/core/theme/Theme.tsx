@@ -19,6 +19,9 @@ const themeOptions = createTheme({
     text: {
       primary: '#e4e6eb',
     },
+    info: {
+      main: "#E4E6EB"
+    }
   },
   typography: {
     h6: {
