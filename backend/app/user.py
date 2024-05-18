@@ -17,12 +17,12 @@ def login_fe():
     if user is None:
         return jsonify({'message': 'Invalid credentials!'})
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (user['user_id'],))
-    user = cursor.fetchone()
-    if user is None:
+    fe = cursor.fetchone()
+    if fe is None:
         return jsonify({'message': 'Invalid credentials!'})
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': user})
+    return jsonify({'message': 'Login successful!', 'user_id': fe['fe_id'],})
 
 @user.route('/login/trainer', methods=['POST'])
 def login_trainer():
@@ -36,17 +36,16 @@ def login_trainer():
     if user is None:
         return jsonify({'message': 'Invalid credentials!'})
     cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (user['user_id'],))
-    user = cursor.fetchone()
-    if user is None:
-        return jsonify({'message': 'Invalid credentials!'})
+    trainer = cursor.fetchone()
+    if trainer is None:
+        return jsonify({'message': 'Invalid credentials!',})
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': user})
+    return jsonify({'message': 'Login successful!', 'user_id': trainer['trainer_id'],})
 
 @user.route('/register/fe', methods=['POST'])
 def register_fe():
-    user_id = uuid.uuid4().int
-    print(user_id, flush=True)
+    user_id = str(uuid.uuid4())
     email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
@@ -62,7 +61,7 @@ def register_fe():
     # Check if user already exists
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM User WHERE user_id = %s', (user_id,))
+    cursor.execute('SELECT * FROM User WHERE email = %s', (email,))
     if cursor.fetchone() is not None:
         return jsonify({'message': 'User already exists!'})
 
@@ -71,11 +70,12 @@ def register_fe():
     cursor.execute('INSERT INTO FitnessEnthusiast (fe_id, weight, height, age, gender) VALUES (%s, %s, %s, %s, %s)', (fe_id, weight, height, age, gender))
     connection.commit()
     cursor.close()
-    return jsonify({'message': 'User registered successfully!'})
+    print(fe_id, flush=True)
+    return jsonify({'message': 'User registered successfully!', 'user_id': user_id,})
 
 @user.route('/register/trainer', methods=['POST'])
 def register_trainer():
-    user_id = uuid.uuid4().int
+    user_id = str(uuid.uuid4())
     email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
@@ -93,7 +93,7 @@ def register_trainer():
     # Check if user already exists
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM User WHERE user_id = %s', (user_id,))
+    cursor.execute('SELECT * FROM User WHERE email = %s', (email,))
     if cursor.fetchone() is not None:
         return jsonify({'message': 'User already exists!'})
 

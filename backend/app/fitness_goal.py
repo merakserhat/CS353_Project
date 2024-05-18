@@ -8,7 +8,7 @@ fitness_goal = Blueprint('fitness_goal', __name__, url_prefix='/fitness_goal')
 
 @fitness_goal.route('/create', methods=['POST'])
 def create():
-    goal_id = uuid.uuid4().int
+    goal_id = str(uuid.uuid4())
     fe_id = request.json['fe_id']
     name = request.json['name']
     target_region = request.json['target_region']

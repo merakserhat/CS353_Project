@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS fitnesstrackerdb;
 USE fitnesstrackerdb;
 
 CREATE TABLE User (
-    user_id BINARY(128) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
     email VARCHAR(255),
     password VARCHAR(40),
     first_name VARCHAR(255),
@@ -13,7 +13,7 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Trainer (
-    trainer_id BINARY(128) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     gender VARCHAR(20),
     fee INT,
     description VARCHAR(255),
@@ -25,13 +25,13 @@ CREATE TABLE Trainer (
 );
 
 CREATE TABLE Admin (
-    admin_id BINARY(128) NOT NULL,
+    admin_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(admin_id),
     FOREIGN KEY(admin_id) references User(user_id)
 );
 
 CREATE TABLE FitnessEnthusiast (
-    fe_id BINARY(128) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     weight INT,
     height INT,
     age INT,
@@ -41,19 +41,19 @@ CREATE TABLE FitnessEnthusiast (
 );
 
 CREATE TABLE Payment (
-    payment_id BINARY(128) NOT NULL,
+    payment_id VARCHAR(36) NOT NULL,
     amount INT NOT NULL,
     date_time VARCHAR(50),
-    fe_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(payment_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(trainer_id) references Trainer(trainer_id)
 );
 
 CREATE TABLE FitnessGoal (
-    goal_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    goal_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     name VARCHAR(20),
     target_region VARCHAR(20),
     calorie INT,
@@ -64,8 +64,8 @@ CREATE TABLE FitnessGoal (
 );
 
 CREATE TABLE PastAchievement (
-    ach_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    ach_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     name VARCHAR(20),
     target_region VARCHAR(20),
     calorie INT,
@@ -76,7 +76,7 @@ CREATE TABLE PastAchievement (
 );
 
 CREATE TABLE Exercise (
-    exercise_id BINARY(128) NOT NULL,
+    exercise_id VARCHAR(36) NOT NULL,
     exercise_name VARCHAR(255),
     target_region VARCHAR(255),
     description VARCHAR(255),
@@ -84,26 +84,26 @@ CREATE TABLE Exercise (
 );
 
 CREATE TABLE Challenge (
-    challenge_id BINARY(128) NOT NULL,
+    challenge_id VARCHAR(36) NOT NULL,
     name VARCHAR(255),
     prize VARCHAR(255),
     start_date INT,
     end_date INT,
-    exercise_id BINARY(128) NOT NULL,
+    exercise_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(challenge_id),
     FOREIGN KEY(exercise_id) references Exercise(exercise_id)
 );
 
 CREATE TABLE Recommendation (
-    recommendation_id BINARY(128) NOT NULL,
+    recommendation_id VARCHAR(36) NOT NULL,
     message VARCHAR(255),
     PRIMARY KEY(recommendation_id)
 );
 
 CREATE TABLE TrainerSession (
-    session_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128) NOT NULL,
+    session_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     start_time INT,
     end_time INT,
     PRIMARY KEY(session_id, fe_id, trainer_id),
@@ -112,21 +112,21 @@ CREATE TABLE TrainerSession (
 );
 
 CREATE TABLE Chat (
-    chat_id BINARY(128) NOT NULL,
-    session_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128) NOT NULL,
+    chat_id VARCHAR(36) NOT NULL,
+    session_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     start_date INT,
     PRIMARY KEY(chat_id, session_id, fe_id, trainer_id),
     FOREIGN KEY(session_id, fe_id, trainer_id) references TrainerSession(session_id, fe_id, trainer_id)
 );
 
 CREATE TABLE Message (
-    message_id BINARY(128) NOT NULL,
-    chat_id BINARY(128) NOT NULL,
-    session_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128) NOT NULL,
+    message_id VARCHAR(36) NOT NULL,
+    chat_id VARCHAR(36) NOT NULL,
+    session_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     content VARCHAR(255),
     date_time INT,
     owner VARCHAR(255),
@@ -141,8 +141,8 @@ CREATE TABLE Message (
 );
 
 CREATE TABLE NutritionPlan (
-    plan_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    plan_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     name VARCHAR(50),
     content VARCHAR(255),
     PRIMARY KEY(plan_id, fe_id),
@@ -150,15 +150,15 @@ CREATE TABLE NutritionPlan (
 );
 
 CREATE TABLE NutritionLog (
-    nutlog_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    nutlog_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     date_time INT,
     PRIMARY KEY(nutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE Nutrition (
-    nut_id BINARY(128),
+    nut_id VARCHAR(36),
     name VARCHAR(50),
     calorie INT,
     protein INT,
@@ -166,74 +166,72 @@ CREATE TABLE Nutrition (
 );
 
 CREATE TABLE ExerciseLog (
-    exlog_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    exlog_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     date_time INT,
     PRIMARY KEY(exlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE WorkoutLog (
-    workoutlog_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    workoutlog_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     date_time INT,
     PRIMARY KEY(workoutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE WorkoutSession (
-    workout_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128),
+    workout_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36),
     name VARCHAR(50),
     audience VARCHAR(20),
-    equipments VARCHAR(255) ARRAY,
+    -- equipments VARCHAR(255) ARRAY,
     description VARCHAR(255),
-    PRIMARY KEY(workout_id, fe_id, trainer_id),
-    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
+    PRIMARY KEY(workout_id, trainer_id),
     FOREIGN KEY(trainer_id) references Trainer(trainer_id)
 );
 
 CREATE TABLE Equipment (
-    workout_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
-    trainer_id BINARY(128) NOT NULL,
+    workout_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36) NOT NULL,
     equipment VARCHAR(50),
-    PRIMARY KEY(workout_id, fe_id, trainer_id, equipment),
-    FOREIGN KEY(workout_id, fe_id, trainer_id) references WorkoutSession(workout_id, fe_id, trainer_id)
+    PRIMARY KEY(workout_id, trainer_id, equipment),
+    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id)
 );
 
 CREATE TABLE has_workout (
-    fe_id BINARY(128) NOT NULL,
-    workout_id BINARY(128) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    workout_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(fe_id, workout_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
 );
 
 CREATE TABLE keeps_workout (
-    workout_id BINARY(128) NOT NULL,
-    fe_id BINARY(128),
-    trainer_id BINARY(128),
-    workoutlog_id BINARY(128) NOT NULL,
+    workout_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36),
+    trainer_id VARCHAR(36),
+    workoutlog_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(workout_id, fe_id, trainer_id, workoutlog_id),
-    FOREIGN KEY(workout_id, fe_id, trainer_id) references WorkoutSession(workout_id, fe_id, trainer_id),
+    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id),
     FOREIGN KEY(workoutlog_id, fe_id) references WorkoutLog(workoutlog_id, fe_id)
 );
 
 CREATE TABLE consists_of_exercise (
-    workout_id BINARY(128),
-    fe_id BINARY(128),
-    trainer_id BINARY(128),
-    exercise_id BINARY(128),
+    workout_id VARCHAR(36),
+    fe_id VARCHAR(36),
+    trainer_id VARCHAR(36),
+    exercise_id VARCHAR(36),
     PRIMARY KEY(workout_id, fe_id, trainer_id, exercise_id),
-    FOREIGN KEY(workout_id, fe_id, trainer_id) references WorkoutSession(workout_id, fe_id, trainer_id),
+    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id),
     FOREIGN KEY(exercise_id) references Exercise(exercise_id)
 );
 
 CREATE TABLE keeps_exercise (
-    exlog_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
-    exercise_id BINARY(128) NOT NULL,
+    exlog_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    exercise_id VARCHAR(36) NOT NULL,
     set_count INT,
     repetition INT,
     PRIMARY KEY(exlog_id, fe_id, exercise_id),
@@ -242,17 +240,17 @@ CREATE TABLE keeps_exercise (
 );
 
 CREATE TABLE recieves_recom (
-    recommendation_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    recommendation_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(recommendation_id, fe_id),
     FOREIGN KEY(recommendation_id) references Recommendation(recommendation_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE keeps_nutrition (
-    nut_id BINARY(128) NOT NULL,
-    nutlog_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    nut_id VARCHAR(36) NOT NULL,
+    nutlog_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     portion INT,
     PRIMARY KEY(nut_id, nutlog_id, fe_id),
     FOREIGN KEY(nut_id) references Nutrition(nut_id),
@@ -260,17 +258,17 @@ CREATE TABLE keeps_nutrition (
 );
 
 CREATE TABLE enters_challenge (
-    fe_id BINARY(128) NOT NULL,
-    challenge_id BINARY(128) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    challenge_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(fe_id, challenge_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(challenge_id) references Challenge(challenge_id)
 );
 
 CREATE TABLE consists_of_nut (
-    nut_id BINARY(128) NOT NULL,
-    plan_id BINARY(128) NOT NULL,
-    fe_id BINARY(128) NOT NULL,
+    nut_id VARCHAR(36) NOT NULL,
+    plan_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
     portion INT,
     PRIMARY KEY(nut_id, plan_id, fe_id),
     FOREIGN KEY(nut_id) references Nutrition(nut_id),

@@ -1,14 +1,13 @@
 from flask import Blueprint, request, jsonify
 import MySQLdb.cursors
 from database import connect
-from datetime import datetime
 import uuid
 
 achievement = Blueprint('achievement', __name__, url_prefix='/achievement')
 
 @achievement.route('/create', methods=['POST'])
 def create():
-    achievement_id = uuid.uuid4().int
+    achievement_id = str(uuid.uuid4())
     fe_id = request.json['fe_id']
     goal_id = request.json['goal_id']
 
