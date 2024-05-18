@@ -10,10 +10,10 @@ import Ege from "../../assets/ege.png";
 import Omuz from "../../assets/workout/omuz.png";
 import { Box } from "@mui/system";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-interface ExerciseModel {
+export interface ExerciseModel {
     name: string,
     sets: number,
     reps: number
@@ -21,6 +21,7 @@ interface ExerciseModel {
 
 function WorkoutCard() {
     const [isCompleted, setCompleted] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const shoulderExercises: ExerciseModel[] = [
         {
@@ -65,7 +66,8 @@ function WorkoutCard() {
         }
     ];
 
-    const handleCompleted = () => {
+    const handleCompleted = (event: any) => {
+        event.stopPropagation();
         setCompleted(true);
     }
 
@@ -73,7 +75,7 @@ function WorkoutCard() {
         // <Link to="/detail" style={{ textDecoration: "none", color: "inherit" }}>
 
         <Box justifyContent={"center"} sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "10px 0" }} >
-            <Card style={{ width: "330px", height: "450px", backgroundColor: "#18191A", padding: "12px" }}>
+            <Card style={{ width: "330px", height: "450px", backgroundColor: "#18191A", padding: "12px" }} onClick={() => {navigate("/detail")}}>
                 <CardContent style={{ margin: "10px 0", padding: "0", display: "flex" }}>
                     <Typography variant="h4">Shoulder Workout</Typography>
                     <Box sx={{ display: "flex", alignItems: "center", padding: "10px" }} >
