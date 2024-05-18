@@ -8,8 +8,8 @@ achievement = Blueprint('achievement', __name__, url_prefix='/achievement')
 @achievement.route('/create', methods=['POST'])
 def create():
     achievement_id = str(uuid.uuid4())
-    fe_id = request.args.get('fe_id')
-    goal_id = request.args.get('goal_id')
+    fe_id = request.json['fe_id']
+    goal_id = request.json['goal_id']
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -37,7 +37,7 @@ def create():
 
 @achievement.route('/list', methods=['GET'])
 def list():
-    fe_id = request.args.get('fe_id')
+    fe_id = request.json['fe_id']
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)

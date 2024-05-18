@@ -8,7 +8,7 @@ fitness_goal = Blueprint('fitness_goal', __name__, url_prefix='/fitness_goal')
 
 @fitness_goal.route('/create', methods=['POST'])
 def create():
-    fe_id = request.args.get('fe_id')
+    fe_id = request.json['fe_id']
     goal_id = str(uuid.uuid4())
     name = request.json['name']
     target_region = request.json['target_region']
@@ -31,7 +31,7 @@ def create():
 
 @fitness_goal.route('/list', methods=['GET'])
 def list():
-    fe_id = request.args.get('fe_id')
+    fe_id = request.json['fe_id']
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))

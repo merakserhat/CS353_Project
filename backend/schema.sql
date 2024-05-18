@@ -181,18 +181,16 @@ CREATE TABLE WorkoutSession (
     trainer_id VARCHAR(36),
     name VARCHAR(50),
     audience VARCHAR(20),
-    -- equipments VARCHAR(255) ARRAY,
+    equipments VARCHAR(255),
     description VARCHAR(255),
     PRIMARY KEY(workout_id, trainer_id),
     FOREIGN KEY(trainer_id) references Trainer(trainer_id)
 );
 
 CREATE TABLE Equipment (
-    workout_id VARCHAR(36) NOT NULL,
-    trainer_id VARCHAR(36) NOT NULL,
-    equipment VARCHAR(50),
-    PRIMARY KEY(workout_id, trainer_id, equipment),
-    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id)
+    equipment_id VARCHAR(36) NOT NULL,
+    name VARCHAR(50),
+    PRIMARY KEY(equipment_id)
 );
 
 CREATE TABLE has_workout (
@@ -201,6 +199,14 @@ CREATE TABLE has_workout (
     PRIMARY KEY(fe_id, workout_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
+);
+
+CREATE TABLE has_equipment (
+    workout_id VARCHAR(36) NOT NULL,
+    equipment_id VARCHAR(36) NOT NULL,
+    PRIMARY KEY(workout_id, equipment_id),
+    FOREIGN KEY(workout_id) references WorkoutSession(workout_id),
+    FOREIGN KEY(equipment_id) references Equipment(equipment_id)
 );
 
 CREATE TABLE keeps_workout (
@@ -421,23 +427,6 @@ VALUES
 -- (1, 'Chicken Breast', 165, 31),
 -- (2, 'Brown Rice', 216, 5);
 
--- Inserting values into the ExerciseLog table
-INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
-VALUES 
-(1, 3, '2024-05-13'),
-(2, 4, '2024-05-14');
-
--- Inserting values into the Exercise table
-INSERT INTO Exercise (exercise_id, target_region, description) 
-VALUES 
-(1, 'Upper Body', 'Bench Press'),
-(2, 'Flexibility', 'Forward Fold');
-
-INSERT INTO keeps_exercise (exlog_id, fe_id, exercise_id, set_count, repetition)
-VALUES 
-(1, 3, 1, 3, 10),
-(2, 4, 2, 1, 5);
-
 -- Insert Chest Exercises
 INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
 ('1', 'Bench Press (Barbell or Dumbbell)', 'Chest', 'A compound exercise that targets the chest, shoulders, and triceps.'),
@@ -513,6 +502,29 @@ INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VA
 ('53', 'Ab Rollouts', 'Abs', 'An exercise that targets the entire core.'),
 ('54', 'Hanging Knee Raises', 'Abs', 'An exercise that targets the lower abs.'),
 ('55', 'Sit-Ups', 'Abs', 'An exercise that targets the abs.');
+
+-- Inserting values into the ExerciseLog table
+INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
+VALUES 
+(1, 3, '2024-05-13'),
+(2, 4, '2024-05-14');
+
+INSERT INTO keeps_exercise (exlog_id, fe_id, exercise_id, set_count, repetition)
+VALUES 
+(1, 3, 1, 3, 10),
+(2, 4, 2, 1, 5);
+
+INSERT INTO Equipment (equipment_id, name) VALUES
+('1', 'Barbell'),
+('2', 'Dumbbell'),
+('3', 'Bench'),
+('4', 'Squat Rack'),
+('5', 'Cable Machine'),
+('6', 'Leg Press Machine'),
+('7', 'Dip Station'),
+('8', 'Pull-Up Bar'),
+('9', 'Yoga Mat'),
+(10, 'Resistance Bands');
 
 -- -- Inserting values into the WorkoutLog table
 -- INSERT INTO WorkoutLog (workoutlog_id, fe_id, date_time) 

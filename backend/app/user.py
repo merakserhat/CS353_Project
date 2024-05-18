@@ -22,7 +22,7 @@ def login_fe():
         return jsonify({'message': 'Invalid credentials!'})
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user_id': fe['fe_id'],})
+    return jsonify({'message': 'Login successful!', 'user': fe,})
 
 @user.route('/login/trainer', methods=['POST'])
 def login_trainer():
@@ -41,7 +41,7 @@ def login_trainer():
         return jsonify({'message': 'Invalid credentials!',})
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user_id': trainer['trainer_id'],})
+    return jsonify({'message': 'Login successful!', 'user': trainer,})
 
 @user.route('/register/fe', methods=['POST'])
 def register_fe():
@@ -69,9 +69,11 @@ def register_fe():
     cursor.execute('INSERT INTO User (user_id, email, password, first_name, middle_name, last_name) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, email, password, first_name, middle_name, last_name))
     cursor.execute('INSERT INTO FitnessEnthusiast (fe_id, weight, height, age, gender) VALUES (%s, %s, %s, %s, %s)', (fe_id, weight, height, age, gender))
     connection.commit()
+    cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
+    fe = cursor.fetchone()
     cursor.close()
     print(fe_id, flush=True)
-    return jsonify({'message': 'User registered successfully!', 'user_id': user_id,})
+    return jsonify({'message': 'User registered successfully!', 'user': fe,})
 
 @user.route('/register/trainer', methods=['POST'])
 def register_trainer():
@@ -101,5 +103,7 @@ def register_trainer():
     cursor.execute('INSERT INTO User (user_id, email, password, first_name, middle_name, last_name) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, email, password, first_name, middle_name, last_name))
     cursor.execute('INSERT INTO Trainer (trainer_id, gender, fee, description, specialization, experience, ratings) VALUES (%s, %s, %s, %s, %s, %s, %s)', (trainer_id, gender, fee, description, specialization, experience, ratings))
     connection.commit()
+    cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (trainer_id,))
+    trainer = cursor.fetchone()
     cursor.close()
-    return jsonify({'message': 'Trainer registered successfully!'})
+    return jsonify({'message': 'Trainer registered successfully!', 'user': trainer,})
