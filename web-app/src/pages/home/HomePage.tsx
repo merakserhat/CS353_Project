@@ -8,6 +8,7 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
+import { getExerciseList, postLoginFe } from '../../data/network/Network';
 
 const menuItems = [
     "Workouts",
@@ -17,6 +18,11 @@ const menuItems = [
 
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
+
+    React.useEffect(() => {
+        // postLoginFe("serhat", "12345");
+        getExerciseList();
+    }, []);
 
     const onMenuSelectionChange = (name: string) => {
         setSelectedMenu(name);
