@@ -275,45 +275,50 @@ CREATE TABLE consists_of_nut (
     FOREIGN KEY(plan_id, fe_id) references NutritionPlan(plan_id, fe_id)
 );
 
--- -- Inserting values into the User table
--- INSERT INTO
---     User (user_id, email, password, first_name, last_name)
--- VALUES
---     (
---         1,
---         'orhunaysan3b@gmail.com',
---         'password1',
---         'orhun',
---         'aysan'
---     ),
---     (
---         2,
---         'egekaraahmetoglu2003@gmail.com',
---         'password2',
---         'ege',
---         'karaahmetoglu'
---     ),
---     (
---         3,
---         'serhatmerak@gmail.com',
---         'password3',
---         'serhat',
---         'merak'
---     ),
---     (
---         4,
---         'mirzaatalar@gmail.com',
---         'password4',
---         'mirza',
---         'atalar'
---     ),
---     (
---         5,
---         'kaanturkoglu@gmail.com',
---         'password5',
---         'kaan',
---         'turkoglu'
---     );
+-- Inserting values into the User table
+INSERT INTO
+    User (user_id, email, password, first_name, middle_name, last_name)
+VALUES
+    (
+        '1',
+        'orhunaysan3b@gmail.com',
+        'password1',
+        'orhun',
+        'slm',
+        'aysan'
+    ),
+    (
+        '2',
+        'egekaraahmetoglu2003@gmail.com',
+        'password2',
+        'ege',
+        'slm',
+        'karaahmetoglu'
+    ),
+    (
+        '3',
+        'serhatmerak@gmail.com',
+        'password3',
+        'serhat',
+        'slm',
+        'merak'
+    ),
+    (
+        '4',
+        'mirzaatalar@gmail.com',
+        'password4',
+        'mirza',
+        'slm',
+        'atalar'
+    ),
+    (
+        '5',
+        'kaanturkoglu@gmail.com',
+        'password5',
+        'kaan',
+        'slm',
+        'turkoglu'
+    );
     
 -- -- Inserting values into the Trainer table
 -- INSERT INTO

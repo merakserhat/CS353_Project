@@ -1,4 +1,4 @@
-from Flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 import MySQLdb.cursors
 from database import connect
 
