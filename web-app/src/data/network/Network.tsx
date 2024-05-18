@@ -34,12 +34,14 @@ export async function postLoginTrainer(email: string, password: string): Promise
 
 export async function postRegsiterFe(email: string, password: string, first_name: string, middle_name: string, last_name: string, weight: string, height: string, age: string, gender: string): Promise<ApiResponse<any>> {
     try {
-        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<RegisterModel[]>>("/user/register/fe", { email, password, first_name, middle_name, last_name, weight, height, age, gender});
-
+        // console.log("em", email)
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<RegisterModel>>("/user/register/fe", { email, password, first_name, middle_name, last_name, weight, height, age, gender });
+        // console.log(result)
         return result;
     } catch (error: any) {
         return error.response;
     }
+
 }
 
 export async function getExerciseList(): Promise<ApiResponse<any>> {

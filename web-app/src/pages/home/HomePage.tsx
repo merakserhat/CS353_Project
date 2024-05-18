@@ -35,7 +35,7 @@ function HomePage() {
             // const response: ApiResponse<ExerciseLogModel[]> = await getExerciseLogList("3");
             // console.log("exercise", response.data[0]);
 
-            const response: ApiResponse<RegisterModel[]> = await postRegsiterFe("john.doe@example.com",
+            const response: ApiResponse<RegisterModel> = await postRegsiterFe("sdgsdg@example.com",
                 "password123",
                 "mal",
                 "ege",
@@ -45,7 +45,7 @@ function HomePage() {
                 "31",
                 "orta");
 
-            console.log(response.data);
+            console.log(response.data.user?.gender);
         }
 
         getData();
