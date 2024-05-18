@@ -54,9 +54,12 @@ CREATE TABLE Payment (
 CREATE TABLE FitnessGoal (
     goal_id BINARY(128) NOT NULL,
     fe_id BINARY(128) NOT NULL,
-    type VARCHAR(20),
-    value VARCHAR(20),
-    time_interval INT,
+    name VARCHAR(20),
+    target_region VARCHAR(20),
+    calorie INT,
+    description VARCHAR(255),
+    start_time DATETIME,
+    duration INT,
     PRIMARY KEY(goal_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
