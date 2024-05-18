@@ -8,7 +8,7 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
-import { getExerciseList, postLoginFe } from '../../data/network/Network';
+import { getExerciseList, getExerciseLogList, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
 
 const menuItems = [
     "Workouts",
@@ -21,7 +21,30 @@ function HomePage() {
 
     React.useEffect(() => {
         // postLoginFe("serhat", "12345");
-        getExerciseList();
+        const getData = async () => {
+            // const response: ApiResponse<any> = await postLoginTrainer("orhunaysan3b@gmail.com", "password1");
+            // console.log(response.data.user_id);
+
+            // const response: ApiResponse<ExerciseModel[]> = await getExerciseList();
+            // console.log("exercise", response.data[0].target_region);
+
+            // const response: ApiResponse<ExerciseLogModel[]> = await getExerciseLogList("3");
+            // console.log("exercise", response.data[0]);
+
+            const response: ApiResponse<RegisterModel[]> = await postRegsiterFe("john.doe@example.com",
+                "password123",
+                "mal",
+                "ege",
+                "karaahmet",
+                "70",
+                "165",
+                "31",
+                "orta");
+
+            console.log(response.data);
+        }
+
+        getData();
     }, []);
 
     const onMenuSelectionChange = (name: string) => {
