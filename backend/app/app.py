@@ -6,10 +6,15 @@ from flask_cors import CORS
 from database import db
 
 from user import user
+from exercise import exercise
+from exercise_log import exercise_log
 
 CORS(db)
 
 db.register_blueprint(user)
+db.register_blueprint(exercise)
+db.register_blueprint(exercise_log)
+
 
 @db.route('/')
 

@@ -72,6 +72,7 @@ CREATE TABLE PastAchievement (
 
 CREATE TABLE Exercise (
     exercise_id BINARY(128) NOT NULL,
+    exercise_name VARCHAR(255),
     target_region VARCHAR(255),
     description VARCHAR(255),
     PRIMARY KEY(exercise_id)
