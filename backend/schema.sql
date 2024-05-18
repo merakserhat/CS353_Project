@@ -57,7 +57,6 @@ CREATE TABLE FitnessGoal (
     name VARCHAR(20),
     target_region VARCHAR(20),
     calorie INT,
-    description VARCHAR(255),
     start_time DATETIME,
     duration INT,
     PRIMARY KEY(goal_id, fe_id),
@@ -67,10 +66,13 @@ CREATE TABLE FitnessGoal (
 CREATE TABLE PastAchievement (
     ach_id BINARY(128) NOT NULL,
     fe_id BINARY(128) NOT NULL,
-    goal_id BINARY(128) NOT NULL,
+    name VARCHAR(20),
+    target_region VARCHAR(20),
+    calorie INT,
+    start_time DATETIME,
+    duration INT,
     PRIMARY KEY(ach_id, fe_id),
-    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
-    FOREIGN KEY(goal_id) references FitnessGoal(goal_id)
+    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE Exercise (
@@ -181,13 +183,11 @@ CREATE TABLE WorkoutLog (
 
 CREATE TABLE WorkoutSession (
     workout_id BINARY(128) NOT NULL,
-    fe_id BINARY(128),
     trainer_id BINARY(128),
     name VARCHAR(50),
     audience VARCHAR(20),
+    equipments VARCHAR(255) ARRAY,
     description VARCHAR(255),
-    duration INT,
-    availability INT,
     PRIMARY KEY(workout_id, fe_id, trainer_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(trainer_id) references Trainer(trainer_id)
@@ -200,6 +200,14 @@ CREATE TABLE Equipment (
     equipment VARCHAR(50),
     PRIMARY KEY(workout_id, fe_id, trainer_id, equipment),
     FOREIGN KEY(workout_id, fe_id, trainer_id) references WorkoutSession(workout_id, fe_id, trainer_id)
+);
+
+CREATE TABLE has_workout (
+    fe_id BINARY(128) NOT NULL,
+    workout_id BINARY(128) NOT NULL,
+    PRIMARY KEY(fe_id, workout_id),
+    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
+    FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
 );
 
 CREATE TABLE keeps_workout (

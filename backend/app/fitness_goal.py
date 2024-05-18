@@ -30,7 +30,8 @@ def set_goal():
     return jsonify({'message': 'Fitness Goal set successfully!'})
 
 @fitness_goal.route('/list/goal', methods=['GET'])
-def list_goals(): # lists both goals and achievements
+# lists both goals and achievements
+def list_goals():
     fe_id = request.json['fe_id']
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
