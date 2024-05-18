@@ -5,11 +5,8 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import MainAppBar from "../../components/app_bar/AppBar";
 import HomeSideBar from "../../components/home_side_bar/HomeSideBar";
-import TrainingCard from '../../components/nutrition_card/NutritionCard';
 import DetailTrainerInfo from './parts/DetailTrainerInfo';
 import DetailWorkoutInfo from './parts/DetailWorkoutInfo';
-
-
 
 function CardDetailPage() {
     return (
@@ -21,7 +18,7 @@ function CardDetailPage() {
             <main>
                <Box sx={{width:"100%", height: "calc(100vh - 72px)", backgroundColor:"#DDE5ED", display:"flex", alignItems:"center", justifyContent:"center", overflow:"scroll"}}>
                     <Box sx={{width:"1200px", height: "800px", backgroundColor:"#F0F6FD", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:"0", padding:"12px", borderRadius:"10px"}}>
-                        <Box sx={{flex: 5, flexShrink:0, overflow: "auto", backgroundColor:"yellow"}} height={"100%"} display={"flex"} >
+                        <Box sx={{flex: 5, flexShrink:0, overflow: "auto"}} height={"100%"} display={"flex"} >
                             <DetailWorkoutInfo/>
                         </Box>
                         <Box width={"24px"} />
