@@ -43,7 +43,7 @@ CREATE TABLE FitnessEnthusiast (
 CREATE TABLE Payment (
     payment_id VARCHAR(36) NOT NULL,
     amount INT NOT NULL,
-    date_time VARCHAR(50),
+    date_time DATETIME,
     fe_id VARCHAR(36) NOT NULL,
     trainer_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(payment_id),
@@ -104,8 +104,8 @@ CREATE TABLE TrainerSession (
     session_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     trainer_id VARCHAR(36) NOT NULL,
-    start_time INT,
-    end_time INT,
+    start_time DATETIME,
+    end_time DATETIME,
     PRIMARY KEY(session_id, fe_id, trainer_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(trainer_id) references Trainer(trainer_id)
@@ -128,7 +128,7 @@ CREATE TABLE Message (
     fe_id VARCHAR(36) NOT NULL,
     trainer_id VARCHAR(36) NOT NULL,
     content VARCHAR(255),
-    date_time INT,
+    date_time DATETIME,
     owner VARCHAR(255),
     PRIMARY KEY(
         message_id,
@@ -152,7 +152,7 @@ CREATE TABLE NutritionPlan (
 CREATE TABLE NutritionLog (
     nutlog_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
-    date_time INT,
+    date_time DATETIME,
     PRIMARY KEY(nutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
@@ -168,7 +168,7 @@ CREATE TABLE Nutrition (
 CREATE TABLE ExerciseLog (
     exlog_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
-    date_time INT,
+    date_time DATETIME,
     PRIMARY KEY(exlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
@@ -176,7 +176,7 @@ CREATE TABLE ExerciseLog (
 CREATE TABLE WorkoutLog (
     workoutlog_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
-    date_time INT,
+    date_time DATETIME,
     PRIMARY KEY(workoutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
@@ -320,36 +320,36 @@ VALUES
         'turkoglu'
     );
     
--- -- Inserting values into the Trainer table
--- INSERT INTO
---     Trainer (
---         trainer_id,
---         gender,
---         fee,
---         description,
---         specialization,
---         experience,
---         ratings
---     )
--- VALUES
---     (
---         1,
---         'Male',
---         50,
---         'Certified personal trainer with 5 years of experience',
---         'Weightlifting',
---         '5 years',
---         4
---     ),
---     (
---         2,
---         'Male',
---         60,
---         'Experienced yoga instructor specializing in Hatha yoga',
---         'Yoga',
---         '8 years',
---         5
---     );
+-- Inserting values into the Trainer table
+INSERT INTO
+    Trainer (
+        trainer_id,
+        gender,
+        fee,
+        description,
+        specialization,
+        experience,
+        ratings
+    )
+VALUES
+    (
+        1,
+        'Male',
+        50,
+        'Certified personal trainer with 5 years of experience',
+        'Weightlifting',
+        '5 years',
+        4
+    ),
+    (
+        2,
+        'Male',
+        60,
+        'Experienced yoga instructor specializing in Hatha yoga',
+        'Yoga',
+        '8 years',
+        5
+    );
 
 -- Inserting values into the FitnessEnthusiast table
 INSERT INTO
@@ -391,11 +391,11 @@ VALUES
 -- (1, 'Try incorporating more protein into your diet'),
 -- (2, 'Consider adding strength training to your workout routine');
 
--- -- Inserting values into the TrainerSession table
--- INSERT INTO TrainerSession (session_id, fe_id, trainer_id, start_time, end_time) 
--- VALUES 
--- (1, 3, 1, '2024-05-13 10:00:00', '2024-05-13 11:00:00'),
--- (2, 4, 2, '2024-05-14 15:00:00', '2024-05-14 16:00:00');
+-- Inserting values into the TrainerSession table
+INSERT INTO TrainerSession (session_id, fe_id, trainer_id, start_time, end_time) 
+VALUES 
+(1, 3, 1, '2024-05-13 10:00:00', '2024-05-13 11:00:00'),
+(2, 4, 2, '2024-05-14 15:00:00', '2024-05-14 16:00:00');
 
 -- -- Inserting values into the Chat table
 -- INSERT INTO Chat (chat_id, session_id, fe_id, trainer_id, start_date) 
@@ -427,17 +427,22 @@ VALUES
 -- (1, 'Chicken Breast', 165, 31),
 -- (2, 'Brown Rice', 216, 5);
 
--- -- Inserting values into the ExerciseLog table
--- INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
--- VALUES 
--- (1, 3, '2024-05-13'),
--- (2, 4, '2024-05-14');
+-- Inserting values into the ExerciseLog table
+INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
+VALUES 
+(1, 3, '2024-05-13'),
+(2, 4, '2024-05-14');
 
--- -- Inserting values into the Exercise table
--- INSERT INTO Exercise (exercise_id, target_region, description) 
--- VALUES 
--- (1, 'Upper Body', 'Bench Press'),
--- (2, 'Flexibility', 'Forward Fold');
+-- Inserting values into the Exercise table
+INSERT INTO Exercise (exercise_id, target_region, description) 
+VALUES 
+(1, 'Upper Body', 'Bench Press'),
+(2, 'Flexibility', 'Forward Fold');
+
+INSERT INTO keeps_exercise (exlog_id, fe_id, exercise_id, set_count, repetition)
+VALUES 
+(1, 3, 1, 3, 10),
+(2, 4, 2, 1, 5);
 
 -- -- Inserting values into the WorkoutLog table
 -- INSERT INTO WorkoutLog (workoutlog_id, fe_id, date_time) 
