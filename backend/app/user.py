@@ -15,14 +15,14 @@ def login_fe():
     cursor.execute('SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
     user = cursor.fetchone()
     if user is None:
-        return jsonify({'message': 'Invalid credentials!'})
+        return jsonify({'message': 'Invalid credentials!'}), 403
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (user['user_id'],))
     fe = cursor.fetchone()
     if fe is None:
-        return jsonify({'message': 'Invalid credentials!'})
+        return jsonify({'message': 'Invalid credentials!'}), 403
     cursor.close()
 
-    return jsonify({'message': 'Login successful!', 'user': fe,}), 403
+    return jsonify({'message': 'Login successful!', 'user': fe,})
 
 @user.route('/login/trainer', methods=['POST'])
 def login_trainer():
@@ -34,11 +34,11 @@ def login_trainer():
     cursor.execute('SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
     user = cursor.fetchone()
     if user is None:
-        return jsonify({'message': 'Invalid credentials!'})
+        return jsonify({'message': 'Invalid credentials!'}), 403
     cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (user['user_id'],))
     trainer = cursor.fetchone()
     if trainer is None:
-        return jsonify({'message': 'Invalid credentials!',})
+        return jsonify({'message': 'Invalid credentials!',}), 403
     cursor.close()
 
     return jsonify({'message': 'Login successful!', 'user': trainer,})
