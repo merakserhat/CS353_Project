@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Theme from "./core/theme/Theme.tsx";
 import ProfilePage from "./pages/profile/ProfilePage.tsx";
 import CardDetailPage from "./pages/card_detail/CardDetailPage.tsx";
+import CreateBasePage from "./pages/create/CreateBasePage.tsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/detail" element={<CardDetailPage />} />
+          <Route path="/create" element={<CreateBasePage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

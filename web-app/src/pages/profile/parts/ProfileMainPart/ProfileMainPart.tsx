@@ -41,7 +41,7 @@ function ProfileMainPart() {
 
             if (selectedMenu === "Easter Egg")
             return <iframe
-                src="//s1.oyuncubey.com/swf/BeerStrip.swf?v=2"
+                src="https://www.oyuncubey.com/en/games/BeerStrip.aspx"
                 title="Stack Fire Ball Game"
                 width="100%"
                 height="100%"

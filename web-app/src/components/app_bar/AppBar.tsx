@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ProfileButton from '../bar_profile_button/BarProfileButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
+import { Button } from '@mui/material';
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -51,6 +53,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function MainAppBar() {
+    const navigate = useNavigate();
+
+    const handleCreateWorkout = () => {
+        navigate("/create");
+    }
+
     return (
         <AppBar position="static" sx={{ flexGrow: 1, borderBottom: "1px solid #909192", height: "72px" }}>
             <Toolbar>
@@ -73,6 +81,14 @@ export default function MainAppBar() {
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </Search>
+                <Button
+            sx={{ color:"white", height: 50 }}
+            variant="contained"
+            color="primary"
+            onClick={handleCreateWorkout}
+        >
+            Create
+        </Button>
                 <ProfileButton name='Serhat' email='serhat.merak@ug.bilkent.edu.tr' />
                 <LogoutButton />
             </Toolbar>
