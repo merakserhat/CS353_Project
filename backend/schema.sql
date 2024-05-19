@@ -167,7 +167,8 @@ CREATE TABLE WorkoutLog (
     workoutlog_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     workout_id VARCHAR(36) NOT NULL,
-    date_time DATETIME,
+    start_date DATETIME,
+    end_date DATETIME,
     PRIMARY KEY(workoutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
@@ -178,12 +179,15 @@ CREATE TABLE WorkoutSession (
     name VARCHAR(50),
     audience VARCHAR(20),
     description VARCHAR(255),
+    duration INT,
+    intensity VARCHAR(20),
     PRIMARY KEY(workout_id)
 );
 
 CREATE TABLE has_workout (
     fe_id VARCHAR(36) NOT NULL,
     workout_id VARCHAR(36) NOT NULL,
+    start_date DATETIME,
     PRIMARY KEY(fe_id, workout_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
@@ -489,27 +493,3 @@ INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, desc
 ('53', 'Ab Rollouts', 'Ab Roller', 'Abs', 'An exercise that targets the entire core.'),
 ('54', 'Hanging Knee Raises', 'Bodyweight', 'Abs', 'An exercise that targets the lower abs.'),
 ('55', 'Sit-Ups', 'Bodyweight', 'Abs', 'An exercise that targets the abs.');
-
--- INSERT INTO Equipment (equipment_id, name) VALUES
--- ('1', 'Barbell'),
--- ('2', 'Dumbbell'),
--- ('3', 'Bench'),
--- ('4', 'Squat Rack'),
--- ('5', 'Cable Machine'),
--- ('6', 'Leg Press Machine'),
--- ('7', 'Dip Station'),
--- ('8', 'Pull-Up Bar'),
--- ('9', 'Yoga Mat'),
--- (10, 'Resistance Bands');
-
--- -- Inserting values into the WorkoutLog table
--- INSERT INTO WorkoutLog (workoutlog_id, fe_id, date_time) 
--- VALUES 
--- (1, 3, '2024-05-13'),
--- (2, 4, '2024-05-14');
-
--- -- Inserting values into the WorkoutSession table
--- INSERT INTO WorkoutSession (workout_id, fe_id, trainer_id, name, audience, description, duration, availability) 
--- VALUES 
--- (1, 3, 1, 'Strength Training', 'Beginner', 'Introduction to basic strength training exercises', 60, 1),
--- (2, 4, 2, 'Yoga Flow', 'Intermediate', 'Dynamic yoga flow sequence for flexibility and strength', 75, 1);
