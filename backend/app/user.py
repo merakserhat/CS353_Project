@@ -110,5 +110,9 @@ def register_trainer():
     connection.commit()
     cursor.execute('SELECT * FROM Trainer WHERE trainer_id = %s', (trainer_id,))
     trainer = cursor.fetchone()
+    cursor.execute('SELECT * FROM User WHERE user_id = %s', (user_id,))
+    user = cursor.fetchone()
     cursor.close()
-    return jsonify({'message': 'Trainer registered successfully!', 'user': trainer,})
+
+    user = {**user, **trainer}
+    return jsonify({'message': 'Trainer registered successfully!', 'user': user,})

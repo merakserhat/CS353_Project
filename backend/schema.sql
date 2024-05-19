@@ -178,7 +178,6 @@ CREATE TABLE WorkoutLog (
 
 CREATE TABLE WorkoutSession (
     workout_id VARCHAR(36) NOT NULL,
-    trainer_id VARCHAR(36),
     name VARCHAR(50),
     audience VARCHAR(20),
     description VARCHAR(255),
