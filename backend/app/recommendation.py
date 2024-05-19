@@ -4,7 +4,7 @@ from database import connect
 import uuid
 import random
 
-recommendations = Blueprint('user', __name__, url_prefix='/recommendations')
+recommendations = Blueprint('recommendations', __name__, url_prefix='/recommendations')
 
 @recommendations.route('/take', methods=['GET'])
 def take_recom():
