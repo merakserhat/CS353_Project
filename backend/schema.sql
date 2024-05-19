@@ -514,9 +514,3 @@ INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, desc
 -- VALUES 
 -- (1, 3, 1, 'Strength Training', 'Beginner', 'Introduction to basic strength training exercises', 60, 1),
 -- (2, 4, 2, 'Yoga Flow', 'Intermediate', 'Dynamic yoga flow sequence for flexibility and strength', 75, 1);
-
--- -- Inserting values into the keeps_workout table
--- INSERT INTO keeps_workout (workout_id, fe_id, trainer_id, workoutlog_id) 
--- VALUES 
--- (1, 3, 1, 1),
--- (2, 4, 2, 2);

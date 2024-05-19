@@ -7,7 +7,6 @@ from database import db
 
 from user import user
 from exercise import exercise
-from exercise_log import exercise_log
 from fitness_goal import fitness_goal
 from achievement import achievement
 from workout import workout
@@ -21,7 +20,6 @@ CORS(db, resources={r"/*": {"origins": "*"}})
 
 db.register_blueprint(user)
 db.register_blueprint(exercise)
-db.register_blueprint(exercise_log)
 db.register_blueprint(fitness_goal)
 db.register_blueprint(achievement)
 db.register_blueprint(workout)
