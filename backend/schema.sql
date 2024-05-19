@@ -240,6 +240,8 @@ CREATE TABLE consists_of_nut (
     FOREIGN KEY(plan_id, fe_id) references NutritionPlan(plan_id, fe_id)
 );
 
+
+
 -- Inserting values into the User table
 INSERT INTO
     User (user_id, email, password, first_name, middle_name, last_name)
@@ -458,3 +460,20 @@ INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, desc
 ('53', 'Ab Rollouts', 'Ab Roller', 'Abs', 'An exercise that targets the entire core.'),
 ('54', 'Hanging Knee Raises', 'Bodyweight', 'Abs', 'An exercise that targets the lower abs.'),
 ('55', 'Sit-Ups', 'Bodyweight', 'Abs', 'An exercise that targets the abs.');
+
+
+delimiter //
+CREATE TRIGGER increment_trainer_rating AFTER UPDATE ON TrainerSession
+       FOR EACH ROW
+       BEGIN
+           IF NEW.availability > OLD.availability THEN
+                UPDATE Trainer
+                SET ratings = ratings + 1
+                WHERE trainer_id = NEW.trainer_id;
+            ELSEIF NEW.availability < OLD.availability  THEN
+                UPDATE Trainer
+                SET ratings = ratings - 1
+                WHERE trainer_id = NEW.trainer_id;
+           END IF;
+       END;//
+delimiter 
