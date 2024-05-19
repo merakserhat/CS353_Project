@@ -8,8 +8,9 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
-import { getExerciseList, getExerciseLogList, getFitnessGoals, postCreateGoal, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
+import { getExerciseList, getExerciseLogList, getFeWorkouts, getFitnessGoals, postCreateGoal, postCreateWorkoutTr, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
+import { WorkoutModel } from '../../data/models/WorkoutModel';
 
 const menuItems = [
     "Workouts",
@@ -19,7 +20,7 @@ const menuItems = [
 
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
-    const { setExercises, user} = React.useContext(GlobalContext);
+    const { setExercises, user } = React.useContext(GlobalContext);
 
 
     React.useEffect(() => {
@@ -49,8 +50,35 @@ function HomePage() {
             // const response: ApiResponse<GoalModel> = await postCreateGoal("4","asd","ads",100,10);
             // console.log(response.data.duration);
 
-            // const response: ApiResponse<GoalModel> = await getFitnessGoals("4");
+            // const response: ApiResponse<GoalModel> = await getFitnessGoals("3");
             // console.log(response.data.duration);
+
+            // const response: ApiResponse<GoalModel> = await getFeWorkouts("3");
+            // console.log(response.data.duration);
+
+            const workoutData: WorkoutModel = {
+                trainer_id: "2",
+                name: "workout2",
+                audience: "Beginner",
+                description: "des_test",
+                exercises: [
+                    { exerciseId: "1", sets: 3, reps: 1 },
+                    { exerciseId: "2", sets: 3, reps: 1 },
+                    { exerciseId: "3", sets: 3, reps: 1 }
+                ]
+            };
+
+            const response: ApiResponse<WorkoutModel> = await postCreateWorkoutTr(
+                "2",
+                "workout2",
+                "Beginner",
+                "des_test",
+                [
+                    { exerciseId: "1", sets: 3, reps: 1 },
+                    { exerciseId: "2", sets: 3, reps: 1 },
+                    { exerciseId: "3", sets: 3, reps: 1 }
+                ]);
+            console.log(response.data.exercises[1].reps);
         }
 
         getData();

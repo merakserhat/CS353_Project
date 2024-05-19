@@ -1,6 +1,8 @@
 // src/api/axiosConfig.ts
 import { height } from '@mui/system';
 import axios from 'axios';
+import { WorkoutModel } from '../models/WorkoutModel';
+import { KeepsExerciseModel } from '../models/KeepsExerciseModel';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:7437/',
@@ -78,6 +80,46 @@ export async function postCreateGoal(feId: string, name: string, target_region: 
 export async function getFitnessGoals(feId: string): Promise<ApiResponse<any>> {
     try {
         const result = await axiosInstance.get<ApiResponse<GoalModel>>(`/fitness_goal/list?fe_id=${feId}`);
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        console.log("feid", feId);
+        console.log("snnnan", error);
+        return error.response;
+    }
+}
+
+export async function postCreateWorkoutFe(feId: string, name: string, audience: string, description: string, exercises: ExerciseModel[]): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<WorkoutModel>>("/workout/create/fe", { feId, name, audience, description, exercises });
+        console.log(result)
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function postCreateWorkoutTr(trId: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/create/trainer", { trId, name, audience, description, exercises });
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+// export const createWorkoutTrainer = async (workout: Omit<WorkoutModel, 'workout_id'>): Promise<WorkoutModel> => {
+//     const response = await axiosInstance.post("/create/trainer", workout);
+//     return response.data.workout;
+// };
+
+export async function getFeWorkouts(feId: string): Promise<ApiResponse<any>> {
+    try {
+        const result = await axiosInstance.get<ApiResponse<GoalModel>>(`/workout/list?fe_id=${feId}`);
         console.log(result);
         return result;
     } catch (error: any) {
