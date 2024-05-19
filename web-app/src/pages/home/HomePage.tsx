@@ -8,7 +8,7 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
-import { getExerciseList, getExerciseLogList, getFeWorkouts, getFitnessGoals, postCreateGoal, postCreateWorkoutTr, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
+import { getExerciseList, getExerciseLogList, getFeWorkouts, getFitnessGoals, getWorkoutList, getWorkoutLogs, postCreateAchievement, postCreateGoal, postCreateWorkoutFe, postCreateWorkoutTr, postFinishWorkout, postLoginFe, postLoginTrainer, postPickWorkout, postRegsiterFe, postStartChat } from '../../data/network/Network';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
 import { WorkoutModel } from '../../data/models/WorkoutModel';
 
@@ -56,29 +56,77 @@ function HomePage() {
             // const response: ApiResponse<GoalModel> = await getFeWorkouts("3");
             // console.log(response.data.duration);
 
-            const workoutData: WorkoutModel = {
-                trainer_id: "2",
-                name: "workout2",
-                audience: "Beginner",
-                description: "des_test",
-                exercises: [
-                    { exercise_id: "1", sets: 3, reps: 1 },
-                    { exercise_id: "2", sets: 3, reps: 1 },
-                    { exercise_id: "3", sets: 3, reps: 1 }
-                ]
-            };
+            // const workoutData: WorkoutModel = {
+            //     trainer_id: "2",
+            //     name: "workout2",
+            //     audience: "Beginner",
+            //     description: "des_test",
+            //     exercises: [
+            //         { exercise_id: "1", sets: 3, reps: 1 },
+            //         { exercise_id: "2", sets: 3, reps: 1 },
+            //         { exercise_id: "3", sets: 3, reps: 1 }
+            //     ]
+            // };
 
-            const response: ApiResponse<WorkoutModel> = await postCreateWorkoutTr(
-                "2",
-                "workout2",
-                "Beginner",
-                "des_test",
-                [
-                    { exercise_id: "1", sets: 3, reps: 1 },
-                    { exercise_id: "2", sets: 3, reps: 1 },
-                    { exercise_id: "3", sets: 3, reps: 1 }
-                ]);
-            console.log(response.data.exercises[1].reps);
+            // const response: ApiResponse<WorkoutModel> = await postCreateWorkoutTr(
+            //     "2",
+            //     "workout2",
+            //     "Beginner",
+            //     "des_test",
+            //     [
+            //         { exercise_id: "1", sets: 3, reps: 1 },
+            //         { exercise_id: "2", sets: 3, reps: 1 },
+            //         { exercise_id: "3", sets: 3, reps: 1 }
+            //     ]);
+            // console.log(response.data.exercises[1].reps);
+
+            // const workoutData: WorkoutModel = {
+            //     trainer_id: "2",
+            //     name: "workout2",
+            //     audience: "Beginner",
+            //     description: "des_test",
+            //     exercises: [
+            //         { exercise_id: "1", sets: 3, reps: 1 },
+            //         { exercise_id: "2", sets: 3, reps: 1 },
+            //         { exercise_id: "3", sets: 3, reps: 1 }
+            //     ]
+            // };
+
+            // const response: ApiResponse<WorkoutModel> = await postCreateWorkoutFe(
+            //     "4",
+            //     "workout2",
+            //     "Beginner",
+            //     "des_test",
+            //     [
+            //         { exercise_id: "1", sets: 3, reps: 1 },
+            //         { exercise_id: "2", sets: 3, reps: 1 },
+            //         { exercise_id: "3", sets: 3, reps: 1 }
+            //     ]);
+            //console.log(response.data.exercises[1].reps);
+
+            // const WorkoutList: ApiResponse<WorkoutModel[]> = await getWorkoutList();
+            // console.log(WorkoutList.data)
+
+            // const response: ApiResponse<WorkoutModel[]> = await getFeWorkouts("3");
+            // console.log("exercise", response.data);
+
+            // const WorkoutList: ApiResponse<WorkoutModel[]> = await postPickWorkout("cd6dc854-1837-4676-ba7c-0e28d22232ec", "4");
+            // console.log(WorkoutList.data)
+            
+            // const response: ApiResponse<WorkoutModel[]> = await postFinishWorkout("4", "cd6dc854-1837-4676-ba7c-0e28d22232ec");
+            // console.log(response.data)
+
+            // const response: ApiResponse<WorkoutModel[]> = await getWorkoutLogs("4");
+            // console.log(response.data)
+
+            // const response: ApiResponse<WorkoutModel[]> = await postCreateAchievement();
+            // console.log(response.data)
+
+            // const response: ApiResponse<WorkoutModel[]> = await postStartChat("3");
+            // console.log(response.data)
+
+            
+
         }
 
         getData();

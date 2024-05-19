@@ -89,11 +89,14 @@ export async function getFitnessGoals(feId: string): Promise<ApiResponse<any>> {
     }
 }
 
-export async function postCreateWorkoutFe(feId: string, name: string, audience: string, description: string, exercises: ExerciseModel[]): Promise<ApiResponse<any>> {
+export async function postCreateWorkoutFe(fe_id: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
     try {
         // console.log("em", email)
-        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<WorkoutModel>>("/workout/create/fe", { feId, name, audience, description, exercises });
-        console.log(result)
+        const data = { fe_id, name, audience, description, exercises };
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/create/fe", data);
+        console.log("adafsd");
+        console.log(result);
         return result;
     } catch (error: any) {
         return error.response;
@@ -114,19 +117,117 @@ export async function postCreateWorkoutTr(trainer_id: string, name: string, audi
     }
 }
 
-// export const createWorkoutTrainer = async (workout: Omit<WorkoutModel, 'workout_id'>): Promise<WorkoutModel> => {
-//     const response = await axiosInstance.post("/create/trainer", workout);
-//     return response.data.workout;
-// };
-
-export async function getFeWorkouts(feId: string): Promise<ApiResponse<any>> {
+export async function getWorkoutList(): Promise<ApiResponse<any>> {
     try {
-        const result = await axiosInstance.get<ApiResponse<GoalModel>>(`/workout/list?fe_id=${feId}`);
+        const result = await axiosInstance.get<ApiResponse<WorkoutModel[]>>("/workout/list");
+        console.log("asfaf");
         console.log(result);
         return result;
     } catch (error: any) {
-        console.log("feid", feId);
+        return error.response;
+    }
+}
+
+
+export async function getFeWorkouts(fe_id: string): Promise<ApiResponse<any>> {
+    try {
+        const result = await axiosInstance.get<ApiResponse<WorkoutModel[]>>(`/workout/list/fe?fe_id=${fe_id}`);
+        console.log(result);
+        console.log(fe_id);
+
+        return result;
+    } catch (error: any) {
+        console.log("feid", fe_id);
         console.log("snnnan", error);
+        return error.response;
+    }
+}
+
+export async function postPickWorkout(workout_id: string, fe_id: string): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const data = { workout_id, fe_id };
+        console.log("anaa");
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/pick", data);
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function postFinishWorkout(fe_id: string, workout_id: string): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const data = { fe_id, workout_id };
+        console.log("anaa");
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/finish", data);
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function getWorkoutLogs(fe_id: string): Promise<ApiResponse<any>> {
+    try {
+        const result = await axiosInstance.get<ApiResponse<WorkoutModel[]>>(`/workout/log?fe_id=${fe_id}`);
+        console.log(result);
+        console.log(fe_id);
+
+        return result;
+    } catch (error: any) {
+        console.log("feid", fe_id);
+        console.log("snnnan", error);
+        return error.response;
+    }
+}
+
+export async function postCreateAchievement(fe_id: string, goal_id: string): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const data = { fe_id, goal_id };
+        console.log("anaa");
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/achievement/create", data);
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function postStartChat(session_id: string): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const data = { session_id };
+        console.log("anaa");
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/chat/start", data);
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function postSendMessage(chat_id: string, session_id: string, ): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const data = { session_id };
+        console.log("anaa");
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/achievement/create", data);
+        console.log("adafsd");
+        console.log(result);
+        return result;
+    } catch (error: any) {
         return error.response;
     }
 }
