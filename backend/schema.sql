@@ -172,6 +172,9 @@ CREATE TABLE ExerciseLog (
 CREATE TABLE WorkoutLog (
     workoutlog_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
+    name VARCHAR(50),
+    audience VARCHAR(20),
+    description VARCHAR(255),
     date_time DATETIME,
     PRIMARY KEY(workoutlog_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
