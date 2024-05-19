@@ -213,6 +213,11 @@ def pick_workout():
     if workout is None:
         return jsonify({'message': 'Workout Session not found!'}), 403
     
+    cursor.execute('SELECT * FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id))
+    has_workout = cursor.fetchone()
+    if has_workout is not None:
+        return jsonify({'message': 'Workout Session already picked!'}), 403
+    
     cursor.execute('INSERT INTO has_workout (fe_id, workout_id) VALUES (%s, %s)', (fe_id, workout_id))
 
     connection.commit()

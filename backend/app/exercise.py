@@ -12,7 +12,7 @@ def exercise_list():
     cursor.execute("SELECT * FROM Exercise")
     exercises = cursor.fetchall()
     if not exercises:
-        return 'No exercises in the system'
+        return jsonify({'message': 'No exercises in the system'}), 403
     
     cursor.close()
     return jsonify(exercises)
