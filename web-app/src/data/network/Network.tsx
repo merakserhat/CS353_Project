@@ -100,10 +100,12 @@ export async function postCreateWorkoutFe(feId: string, name: string, audience: 
     }
 }
 
-export async function postCreateWorkoutTr(trId: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
+export async function postCreateWorkoutTr(trainer_id: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
     try {
         // console.log("em", email)
-        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/create/trainer", { trId, name, audience, description, exercises });
+        const data = { trainer_id, name, audience, description, exercises };
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/create/trainer", data);
         console.log("adafsd");
         console.log(result);
         return result;

@@ -1,4 +1,5 @@
 interface UserModel {
+    fe_id :  string,
     email :  string,
     password :  string ,
     first_name :  string ,

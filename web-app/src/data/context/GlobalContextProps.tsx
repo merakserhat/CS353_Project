@@ -8,7 +8,7 @@ interface GlobalContextProps {
     setUser: (value: UserModel | undefined) => void;
     //////////////////////////
     exercises?: ExerciseModel[]
-    setExercises: (value: ExerciseModel[] | undefined) => void;
+    setExercises: (value: ExerciseModel[]) => void;
 }
 
 const defaultValue: GlobalContextProps = {

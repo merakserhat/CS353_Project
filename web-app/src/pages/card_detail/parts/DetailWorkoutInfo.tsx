@@ -3,71 +3,71 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import DetailTrainerInfo from './DetailTrainerInfo';
 import WorkoutStepLabel from '../components/WorkoutStepLabel';
-import { ExerciseModel } from '../../../components/workout_card/WorkoutCard';
 import Ege from "../../../assets/ege.png";
+import { KeepsExerciseModel } from '../../../data/models/KeepsExerciseModel';
 
 
-const shoulderExercises: ExerciseModel[] = [
-    {
-        name: "Shoulder Press",
-        sets: 3,
-        reps: 12
-    },
-    {
-        name: "Dumbbell Lateral Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Front Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Arnold Press",
-        sets: 3,
-        reps: 10
-    },
-    {
-        name: "Shoulder Press",
-        sets: 3,
-        reps: 12
-    },
-    {
-        name: "Dumbbell Lateral Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Front Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Arnold Press",
-        sets: 3,
-        reps: 10
-    },
-    {
-        name: "Shoulder Press",
-        sets: 3,
-        reps: 12
-    },
-    {
-        name: "Dumbbell Lateral Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Front Raise",
-        sets: 3,
-        reps: 15
-    },
-    {
-        name: "Arnold Press",
-        sets: 3,
-        reps: 10
-    }
+const shoulderExercises: KeepsExerciseModel[] = [
+    // {
+    //     name: "Shoulder Press",
+    //     sets: 3,
+    //     reps: 12
+    // },
+    // {
+    //     name: "Dumbbell Lateral Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Front Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Arnold Press",
+    //     sets: 3,
+    //     reps: 10
+    // },
+    // {
+    //     name: "Shoulder Press",
+    //     sets: 3,
+    //     reps: 12
+    // },
+    // {
+    //     name: "Dumbbell Lateral Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Front Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Arnold Press",
+    //     sets: 3,
+    //     reps: 10
+    // },
+    // {
+    //     name: "Shoulder Press",
+    //     sets: 3,
+    //     reps: 12
+    // },
+    // {
+    //     name: "Dumbbell Lateral Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Front Raise",
+    //     sets: 3,
+    //     reps: 15
+    // },
+    // {
+    //     name: "Arnold Press",
+    //     sets: 3,
+    //     reps: 10
+    // }
 ];
 
 function DetailWorkoutInfo() {

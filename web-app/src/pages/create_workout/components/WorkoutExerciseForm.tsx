@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Select, MenuItem, TextField, Grid, InputLabel, Button } from '@mui/material';
-
-const randomItems = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10'
-];
+import { GlobalContext } from '../../../data/context/GlobalContextProps';
 
 interface WorkoutExerciseFormProps {
     onDelete: (index: number) => void
-    index: number
+    index: number,
+    complete: (sets: number, reps: number, exercise: string, index: number) => void
 }
 
 const WorkoutExerciseForm = (props: WorkoutExerciseFormProps) => {
+    const {exercises} = useContext(GlobalContext);
     const [selectedItem, setSelectedItem] = useState('');
     const [sets, setSets] = useState('');
     const [reps, setReps] = useState('');
+
+    useEffect(() => {
+        props.complete(parseInt(sets), parseInt(reps), selectedItem, props.index);
+    },[sets, reps, exercises] );
 
     const handleSelectChange = (event: any) => {
         setSelectedItem(event.target.value as string);
@@ -53,8 +47,8 @@ const WorkoutExerciseForm = (props: WorkoutExerciseFormProps) => {
                 }}
                 fullWidth
             >
-                {randomItems.map((item, index) => (
-                    <MenuItem key={index} value={item}>{item}</MenuItem>
+                {exercises!.map((item, index) => (
+                    <MenuItem key={index} value={item.exercise_name}>{item.exercise_name}</MenuItem>
                 ))}
             </TextField>
             <Grid container spacing={2}>

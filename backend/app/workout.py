@@ -25,11 +25,11 @@ def create_workout_trainer():
     cursor.execute('INSERT INTO WorkoutSession (workout_id, trainer_id, name, audience, description) VALUES (%s, %s, %s, %s, %s)', (workout_id, trainer_id, name, audience, description))
     
     for exercise in exercises:
-        exercise_name = exercise['exercise_name']
+        exercise_id = exercise['exercise_id']
         sets = exercise['sets']
         reps = exercise['reps']
     
-        cursor.execute('SELECT * FROM Exercise WHERE exercise_name = %s', (exercise_name,))
+        cursor.execute('SELECT * FROM Exercise WHERE exercise_id = %s', (exercise_id,))
         exercise = cursor.fetchone()
         if exercise is None:
             return jsonify({'message': 'Exercise not found!'}), 403

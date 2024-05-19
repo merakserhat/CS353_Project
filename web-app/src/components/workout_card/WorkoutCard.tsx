@@ -20,7 +20,7 @@ function WorkoutCard() {
 
     const shoulderExercises: KeepsExerciseModel[] = [
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -28,10 +28,11 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -39,10 +40,11 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -50,10 +52,11 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -61,10 +64,11 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -72,10 +76,11 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
         {
-            exerciseId: "1",
+            exercise_id: "1",
             sets: 3,
             reps: 12,
             data: {
@@ -83,6 +88,7 @@ function WorkoutCard() {
                 exercise_id: "1",
                 exercise_name: "Bench Press (Barbell or Dumbbell)",
                 target_region: "Chest",
+                equipment: "Barbell, Bench"
             }
         },
     ];

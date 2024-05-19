@@ -62,9 +62,9 @@ function HomePage() {
                 audience: "Beginner",
                 description: "des_test",
                 exercises: [
-                    { exerciseId: "1", sets: 3, reps: 1 },
-                    { exerciseId: "2", sets: 3, reps: 1 },
-                    { exerciseId: "3", sets: 3, reps: 1 }
+                    { exercise_id: "1", sets: 3, reps: 1 },
+                    { exercise_id: "2", sets: 3, reps: 1 },
+                    { exercise_id: "3", sets: 3, reps: 1 }
                 ]
             };
 
@@ -74,9 +74,9 @@ function HomePage() {
                 "Beginner",
                 "des_test",
                 [
-                    { exerciseId: "1", sets: 3, reps: 1 },
-                    { exerciseId: "2", sets: 3, reps: 1 },
-                    { exerciseId: "3", sets: 3, reps: 1 }
+                    { exercise_id: "1", sets: 3, reps: 1 },
+                    { exercise_id: "2", sets: 3, reps: 1 },
+                    { exercise_id: "3", sets: 3, reps: 1 }
                 ]);
             console.log(response.data.exercises[1].reps);
         }

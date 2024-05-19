@@ -1,5 +1,5 @@
 export interface KeepsExerciseModel {
-    exerciseId: string,
+    exercise_id: string,
     sets: number,
     reps: number,
     data?: ExerciseModel

@@ -16,7 +16,7 @@ from trainer_session import trainer_session
 from nutrition_plan import nutrition_plan
 from recommendation import recommendations
 
-CORS(db)
+CORS(db, resources={r"/*": {"origins": "*"}})
 
 db.register_blueprint(user)
 db.register_blueprint(exercise)
