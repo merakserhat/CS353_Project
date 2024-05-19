@@ -13,6 +13,7 @@ def create_nutrition_plan():
     name = request.json['name']
     description = request.json['description']
     nutritions = request.json['nutritions']
+    start_date = datetime.now() + timedelta(hours=3)
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -21,7 +22,7 @@ def create_nutrition_plan():
     if fe is None:
         return jsonify({'message': 'Fitness Enthusiast not found!'}), 403
 
-    cursor.execute('INSERT INTO NutritionPlan (plan_id, fe_id, name, description) VALUES (%s, %s, %s, %s)', (plan_id, fe_id, name, description))
+    cursor.execute('INSERT INTO NutritionPlan (plan_id, fe_id, name, description, start_date) VALUES (%s, %s, %s, %s, %s)', (plan_id, fe_id, name, description, start_date))
     for nutrition in nutritions:
         nut_id = nutrition['nut_id']
         portion = nutrition['portion']
@@ -102,7 +103,7 @@ def finish():
     nutlog_id = str(uuid.uuid4())
     plan_id = request.json['plan_id']
     fe_id = request.json['fe_id']
-    date_time = datetime.now() + timedelta(hours=3)
+    end_date = datetime.now() + timedelta(hours=3)
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -110,8 +111,9 @@ def finish():
     plan = cursor.fetchone()
     if plan is None:
         return jsonify({'message': 'Nutrition Plan not found!'}), 403
-
-    cursor.execute('INSERT INTO NutritionLog (nutlog_id, plan_id, fe_id, date_time) VALUES (%s, %s, %s, %s)', (nutlog_id, plan_id, fe_id, date_time))
+    
+    start_date = plan['start_date']
+    cursor.execute('INSERT INTO NutritionLog (nutlog_id, plan_id, fe_id, start_date, end_date) VALUES (%s, %s, %s, %s, %s)', (nutlog_id, plan_id, fe_id, start_date, end_date))
     connection.commit()
 
     cursor.close()

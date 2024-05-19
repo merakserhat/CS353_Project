@@ -141,6 +141,7 @@ CREATE TABLE NutritionPlan (
     fe_id VARCHAR(36) NOT NULL,
     name VARCHAR(50),
     description VARCHAR(255),
+    start_date DATETIME,
     PRIMARY KEY(plan_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
@@ -149,7 +150,8 @@ CREATE TABLE NutritionLog (
     nutlog_id VARCHAR(36) NOT NULL,
     plan_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
-    date_time DATETIME,
+    start_date DATETIME,
+    end_date DATETIME,
     PRIMARY KEY(nutlog_id, plan_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(plan_id) references NutritionPlan(plan_id)
@@ -182,6 +184,14 @@ CREATE TABLE WorkoutSession (
     duration INT,
     intensity VARCHAR(20),
     PRIMARY KEY(workout_id)
+);
+
+CREATE TABLE Report (
+    report_id VARCHAR(36) NOT NULL,
+    fe_id VARCHAR(36) NOT NULL,
+    description VARCHAR(255),
+    PRIMARY KEY(report_id, fe_id),
+    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE has_workout (
@@ -313,33 +323,6 @@ VALUES
     (3, 70, 175, 30, 'Male'),
     (4, 55, 160, 25, 'Female');
 
--- INSERT INTO Admin (admin_id) 
--- VALUES(5);
-
--- -- Inserting values into the Payment table
--- INSERT INTO
---     Payment (payment_id, amount, date_time, fe_id, trainer_id)
--- VALUES
---     (1, 50, '2024-05-13', 3, 1),
---     (2, 60, '2024-05-13', 4, 2);
-
--- INSERT INTO FitnessGoal (goal_id, fe_id, type, value, time_interval) 
--- VALUES 
--- (1, 3, 'Weight Loss', '10 kg', 3),
--- (2, 4, 'Muscle Gain', '5 kg', 6);
-
--- -- Inserting values into the PastAchievement table
--- INSERT INTO PastAchievement (ach_id, fe_id, goal_id) 
--- VALUES 
--- (1, 3, 1),
--- (2, 4, 2);
-
--- -- Inserting values into the Challenge table
--- INSERT INTO Challenge (challenge_id, name, prize, start_date, end_date, exercise_id) 
--- VALUES 
--- (1, 'Summer Fitness Challenge', 'Free gym membership', '2024-06-01', '2024-08-31', 1),
--- (2, 'Yoga Wellness Challenge', 'Wellness package', '2024-07-01', '2024-07-31', 2);
-
 -- Inserting values into the Recommendation table
 INSERT INTO Recommendation (recommendation_id, message) 
 VALUES 
@@ -373,24 +356,6 @@ INSERT INTO Chat (chat_id, session_id, start_date)
 VALUES 
 (1, 1, '2024-05-13'),
 (2, 2, '2024-05-14');
-
--- -- Inserting values into the Message table
--- INSERT INTO Message (message_id, chat_id, session_id, fe_id, trainer_id, content, date_time, owner) 
--- VALUES 
--- (1, 1, 1, 3, 1, 'Hi, how can I help you today?', '2024-05-13 10:05:00', 'Trainer'),
--- (2, 1, 1, 3, 1, 'I have some questions about my workout plan', '2024-05-13 10:10:00', 'Fitness Enthusiast');
-
--- -- Inserting values into the NutritionPlan table
--- INSERT INTO NutritionPlan (plan_id, fe_id, name, content) 
--- VALUES 
--- (1, 3, 'Muscle Gain Plan', 'High-protein diet with moderate carbs and fats'),
--- (2, 4, 'Weight Loss Plan', 'Balanced diet with calorie deficit');
-
--- -- Inserting values into the NutritionLog table
--- INSERT INTO NutritionLog (nutlog_id, fe_id, date_time) 
--- VALUES 
--- (1, 3, '2024-05-13'),
--- (2, 4, '2024-05-14');
 
 -- Inserting values into the Nutrition table
 INSERT INTO Nutrition (nut_id, name, calorie, protein) 

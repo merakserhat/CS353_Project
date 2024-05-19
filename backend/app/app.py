@@ -15,6 +15,7 @@ from trainer_session import trainer_session
 from nutrition_plan import nutrition_plan
 from recommendation import recommendations
 from nutrition import nutrition
+from report import report
 
 CORS(db, resources={r"/*": {"origins": "*"}})
 
@@ -28,12 +29,13 @@ db.register_blueprint(trainer_session)
 db.register_blueprint(nutrition_plan)
 db.register_blueprint(recommendations)
 db.register_blueprint(nutrition)
+db.register_blueprint(report)
 
 @db.route('/')
 
 @db.route('/data', methods=['GET'])
 def data():
-    return "slm"
+    return "test data"
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 7437))
