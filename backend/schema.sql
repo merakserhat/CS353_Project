@@ -370,11 +370,28 @@ VALUES
 -- (1, 'Summer Fitness Challenge', 'Free gym membership', '2024-06-01', '2024-08-31', 1),
 -- (2, 'Yoga Wellness Challenge', 'Wellness package', '2024-07-01', '2024-07-31', 2);
 
--- -- Inserting values into the Recommendation table
--- INSERT INTO Recommendation (recommendation_id, message) 
--- VALUES 
--- (1, 'Try incorporating more protein into your diet'),
--- (2, 'Consider adding strength training to your workout routine');
+-- Inserting values into the Recommendation table
+INSERT INTO Recommendation (recommendation_id, message) 
+VALUES 
+(3, 'Incorporate a variety of fruits and vegetables into your daily meals for essential vitamins and minerals'),
+(4, 'Stay hydrated by drinking plenty of water throughout the day'),
+(5, 'Limit processed foods and opt for whole, nutrient-dense options instead'),
+(6, 'Include complex carbohydrates like whole grains, oats, and sweet potatoes in your diet for sustained energy levels'),
+(7, 'Prioritize getting enough sleep each night to support muscle recovery and overall well-being'),
+(8, 'Engage in regular cardiovascular exercise to improve heart health and endurance'),
+(9, 'Reduce your intake of added sugars and sugary beverages to support weight management and prevent energy crashes'),
+(10, 'Incorporate healthy fats like avocados, nuts, and olive oil into your diet for brain function and satiety'),
+(11, 'Practice mindful eating by paying attention to hunger and fullness cues, rather than eating out of habit or emotion'),
+(12, 'Experiment with different types of physical activity to find what you enjoy most, whether its hiking, dancing, or swimming'),
+(13, 'Consider working with a registered dietitian or nutritionist to create a personalized meal plan that meets your specific needs and goals'),
+(14, 'Make time for regular stretching or yoga sessions to improve flexibility and reduce the risk of injury'),
+(15, 'Limit alcohol consumption, as it can interfere with muscle recovery and disrupt sleep patterns'),
+(16, 'Set realistic and achievable fitness goals to stay motivated and track your progress over time'),
+(17, 'Practice portion control to avoid overeating and maintain a healthy weight'),
+(18, 'Incorporate strength training exercises into your routine to build lean muscle mass and increase metabolism'),
+(19, 'Listen to your body and give yourself rest days when needed to prevent burnout and injury'),
+(20, 'Stay consistent with your fitness and nutrition habits, but dont be too hard on yourself - progress takes time and patience');
+
 
 -- Inserting values into the TrainerSession table
 INSERT INTO TrainerSession (session_id, fe_id, trainer_id, start_time, end_time) 

@@ -82,7 +82,7 @@ def unreserve():
 @trainer_session.route('/fe/available_sessions', methods=['GET'])
 def list_available_sessions():
     now = datetime.now() + timedelta(hours=3)
-    trainer_id = request.json['trainer_id']
+    trainer_id = request.args.get('trainer_id')
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
 
@@ -95,7 +95,7 @@ def list_available_sessions():
 @trainer_session.route('/fe/sessions', methods=['GET'])
 def list_sessions():
     now = datetime.now() + timedelta(hours=3)
-    fe_id = request.json['fe_id']
+    fe_id = request.args.get('fe_id')
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
 
@@ -108,7 +108,7 @@ def list_sessions():
 
 @trainer_session.route('/trainer/sessions', methods=['GET'])
 def list_trainer_sessions():
-    trainer_id = request.json['trainer_id']
+    trainer_id = request.args.get('trainer_id')
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
 

@@ -56,8 +56,8 @@ def send_message():
 
 @chat.route('/get_messages', methods=['GET'])
 def get_messages():
-    chat_id = request.json['chat_id']
-    session_id = request.json['session_id']
+    chat_id = request.args.get('chat_id')
+    session_id = request.args.get('session_id')
    
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
