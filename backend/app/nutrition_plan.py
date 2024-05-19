@@ -37,6 +37,8 @@ def create_nutrition_plan():
 
     cursor.close()
 
+    # return "sa"
+
     return jsonify({'message': 'Nutrition Plan created successfully!', 'nutrition_plan': nut_plan})
 
 @nutrition_plan.route('/delete', methods=['POST'])

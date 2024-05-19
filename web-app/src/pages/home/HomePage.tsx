@@ -8,7 +8,7 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
-import { getExerciseList, getExerciseLogList, getFeWorkouts, getFitnessGoals, getWorkoutList, getWorkoutLogs, postCreateAchievement, postCreateGoal, postCreateWorkoutFe, postCreateWorkoutTr, postFinishWorkout, postLoginFe, postLoginTrainer, postPickWorkout, postRegsiterFe, postStartChat } from '../../data/network/Network';
+import { getExerciseList, getExerciseLogList, getFeWorkouts, getFitnessGoals, getNutritionList, getWorkoutList, getWorkoutLogs, postCreateAchievement, postCreateGoal, postCreateWorkoutFe, postCreateWorkoutTr, postFinishWorkout, postLoginFe, postLoginTrainer, postPickWorkout, postRegsiterFe, postStartChat } from '../../data/network/Network';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
 import { WorkoutModel } from '../../data/models/WorkoutModel';
 
@@ -20,6 +20,7 @@ const menuItems = [
 
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
+    const [nutritionPlans, setNutritionPlans] = React.useState<NutritionPlanModel[]>([]);
     const { setExercises, user } = React.useContext(GlobalContext);
 
 
@@ -53,8 +54,9 @@ function HomePage() {
             // const response: ApiResponse<GoalModel> = await getFitnessGoals("3");
             // console.log(response.data.duration);
 
-            // const response: ApiResponse<GoalModel> = await getFeWorkouts("3");
-            // console.log(response.data.duration);
+            const nutritionResponse: ApiResponse<{nutrition_plans: NutritionPlanModel[]}> = await getNutritionList(user!.fe_id);
+            console.log("description", nutritionResponse.data.nutrition_plans[0].description);
+            setNutritionPlans(nutritionResponse.data.nutrition_plans);
 
             // const workoutData: WorkoutModel = {
             //     trainer_id: "2",
@@ -68,6 +70,17 @@ function HomePage() {
             //     ]
             // };
 
+            const response: ApiResponse<WorkoutModel> = await postCreateWorkoutTr(
+                "2",
+                "workout2",
+                "Beginner",
+                "des_test",
+                [
+                    { exercise_id: "1", sets: 3, reps: 1 },
+                    { exercise_id: "2", sets: 3, reps: 1 },
+                    { exercise_id: "3", sets: 3, reps: 1 }
+                ]);
+            // console.log(response.data.exercises[1].reps);
             // const response: ApiResponse<WorkoutModel> = await postCreateWorkoutTr(
             //     "2",
             //     "workout2",
@@ -153,9 +166,9 @@ function HomePage() {
                 ));
                 break;
             case menuItems[2]:
-                return Array.from(Array(6)).map((_, index) => (
+                return nutritionPlans.map((diet, index) => (
                     <Grid item xs key={index}>
-                        <DietCard />
+                        <DietCard nutritionPlan={diet} />
                     </Grid>
                 ));
                 break;
