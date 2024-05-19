@@ -131,7 +131,7 @@ def list_workout():
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM WorkoutSession WHERE trainer_id IS NOT NULL')
     workouts = cursor.fetchall()
-    if workouts is None:
+    if len(workouts) == 0:
         return jsonify({'message': 'No Workout Sessions exists!'}), 403
 
     for workout in workouts:
@@ -248,8 +248,8 @@ def finish_workout():
     if workout is None:
         return jsonify({'message': 'Workout Session not found!'}), 403,
 
-    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, workout_id, date_time) VALUES (%s, %s, %s)', (workoutlog_id, fe_id, workout_id, date_time))
-    cursor.execute('DELETE FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id))
+    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, workout_id, date_time) VALUES (%s, %s, %s, %s)', (workoutlog_id, fe_id, workout_id, date_time,))
+    cursor.execute('DELETE FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id,))
     connection.commit()
     cursor.close()
 
