@@ -21,6 +21,7 @@ const menuItems = [
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
     const [nutritionPlans, setNutritionPlans] = React.useState<NutritionPlanModel[]>([]);
+    const [workouts, setWorkouts] = React.useState<WorkoutModel[]>([]);
     const { setExercises, user } = React.useContext(GlobalContext);
 
 
@@ -54,9 +55,19 @@ function HomePage() {
             // const response: ApiResponse<GoalModel> = await getFitnessGoals("3");
             // console.log(response.data.duration);
 
-            const nutritionResponse: ApiResponse<{nutrition_plans: NutritionPlanModel[]}> = await getNutritionList(user!.fe_id);
-            console.log("description", nutritionResponse.data.nutrition_plans[0].description);
-            setNutritionPlans(nutritionResponse.data.nutrition_plans);
+            const nutritionResponse: ApiResponse<{ nutrition_plans: NutritionPlanModel[] }> = await getNutritionList(user!.fe_id);
+            if (nutritionResponse.status < 400) {
+                setNutritionPlans(nutritionResponse.data.nutrition_plans);
+            }
+
+            const workoutResponse: ApiResponse<WorkoutModel[]> = await getFeWorkouts(user!.fe_id);
+            console.log("smnmem");
+            if (workoutResponse.status < 400) {
+                setWorkouts(workoutResponse.data ?? []);
+            }
+
+            // const feWorkoutResponse: ApiResponse<WorkoutModel[]> = await getFeWorkouts(user!.fe_id);
+            // setWorkouts(feWorkoutResponse.data ? [...workouts, ...feWorkoutResponse.data] : workouts);
 
             // const workoutData: WorkoutModel = {
             //     trainer_id: "2",
@@ -117,15 +128,15 @@ function HomePage() {
             //     ]);
             //console.log(response.data.exercises[1].reps);
 
-            // const WorkoutList: ApiResponse<WorkoutModel[]> = await getWorkoutList();
-            // console.log(WorkoutList.data)
+            const WorkoutList: ApiResponse<WorkoutModel[]> = await getWorkoutList();
+            console.log("sasasas", WorkoutList.data)
 
             // const response: ApiResponse<WorkoutModel[]> = await getFeWorkouts("3");
             // console.log("exercise", response.data);
 
             // const WorkoutList: ApiResponse<WorkoutModel[]> = await postPickWorkout("cd6dc854-1837-4676-ba7c-0e28d22232ec", "4");
             // console.log(WorkoutList.data)
-            
+
             // const response: ApiResponse<WorkoutModel[]> = await postFinishWorkout("4", "cd6dc854-1837-4676-ba7c-0e28d22232ec");
             // console.log(response.data)
 
@@ -138,7 +149,7 @@ function HomePage() {
             // const response: ApiResponse<WorkoutModel[]> = await postStartChat("3");
             // console.log(response.data)
 
-            
+
 
         }
 
@@ -152,7 +163,7 @@ function HomePage() {
     const getMenuList = () => {
         switch (selectedMenu) {
             case menuItems[0]:
-                return Array.from(Array(6)).map((_, index) => (
+                return workouts.map((_, index) => (
                     <Grid item xs key={index}>
                         <WorkoutCard />
                     </Grid>

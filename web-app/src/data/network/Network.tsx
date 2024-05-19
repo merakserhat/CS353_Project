@@ -89,10 +89,9 @@ export async function getFitnessGoals(feId: string): Promise<ApiResponse<any>> {
     }
 }
 
-export async function postCreateWorkoutFe(fe_id: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
+export async function postCreateWorkoutFe(data: {fe_id: string, duration: number, intensity: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]}): Promise<ApiResponse<any>> {
     try {
         // console.log("em", email)
-        const data = { fe_id, name, audience, description, exercises };
         console.log("data", data);
         const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/workout/create/fe", data);
         console.log("adafsd");
@@ -166,7 +165,7 @@ export async function getWorkoutList(): Promise<ApiResponse<any>> {
 export async function getFeWorkouts(fe_id: string): Promise<ApiResponse<any>> {
     try {
         const result = await axiosInstance.get<ApiResponse<WorkoutModel[]>>(`/workout/list/fe?fe_id=${fe_id}`);
-        console.log(result);
+        console.log("result get fe", result);
         console.log(fe_id);
 
         return result;

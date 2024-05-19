@@ -5,7 +5,7 @@ interface GlobalProviderProps {
     children: ReactNode;
 }
 
-const exerc = [
+export const exerc = [
     {
         "description": "A compound exercise that targets the chest, shoulders, and triceps.",
         "exercise_id": "1",

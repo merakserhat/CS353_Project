@@ -10,6 +10,9 @@ import { useState } from 'react';
 import WorkoutExerciseForm from './components/WorkoutExerciseForm';
 import { TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
+import { postCreateWorkoutFe } from '../../data/network/Network';
+import { useNavigate } from 'react-router-dom';
+import { exerc } from '../../data/context/GlobalProvider';
 
 
 interface ExerciseDraft {
@@ -25,6 +28,7 @@ function CreateWorkoutPage() {
     const [exerciseDrafts, setExerciseDrafts] = useState<ExerciseDraft[]>([]);
 
     const {user} = React.useContext(GlobalContext);
+    const navigate = useNavigate();
 
     const handleNewExercise = () => {
         setExerciseIndex((ex) => ex += 1);
@@ -53,7 +57,9 @@ function CreateWorkoutPage() {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        audience: ''
+        audience: '',
+        intensity: '',
+        duration: 0,
     });
 
     const handleChange = (event: any) => {
@@ -64,7 +70,7 @@ function CreateWorkoutPage() {
         });
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         // Handle form submission
         console.log(formData);
@@ -72,15 +78,27 @@ function CreateWorkoutPage() {
         const description = formData.description;
         const name = formData.name;
         const audience = formData.audience;
+        const intensity = formData.intensity;
+        const duration = formData.duration;
 
-        if (description && name && audience && exerciseDrafts.length > 0 && user?.fe_id) {
-            console.log("Form submitted", {
-                description: description,
-                fe_id: user!.fe_id,
-                name: name,
-                audience: audience,
-                exercises: exerciseDrafts
-            });
+        const exercises = exerciseDrafts.map((ed) => {
+            return {
+                exercise_id: exerc.filter((e) => e.exercise_name === ed.exercise_name)[0].exercise_id,
+                sets: ed.sets,
+                reps: ed.reps,
+            }
+        });
+
+        if (duration && intensity && description && name && audience && exerciseDrafts.length > 0 && user?.fe_id) {
+            const result = await postCreateWorkoutFe({fe_id: user.fe_id, name, audience, description, exercises: exercises, intensity: intensity, duration: duration});
+            console.log(result);
+
+            if (result.status === 200) {
+                alert("Workout created successfully!")
+            } else {
+                alert("Failed to create workout!")
+            }
+            navigate("/");
         }
     };
 
@@ -126,6 +144,16 @@ function CreateWorkoutPage() {
                                 fullWidth
                                 rows={4}
                             />
+                            <TextField
+                                label="Duration"
+                                variant="outlined"
+                                name="duration"
+                                value={formData.duration}
+                                onChange={handleChange}
+                                required
+                                multiline
+                                fullWidth
+                            />
                             <FormControl variant="outlined" required>
                                 <InputLabel>Audience</InputLabel>
                                 <Select
@@ -140,6 +168,21 @@ function CreateWorkoutPage() {
                                     <MenuItem value="Pro">Pro</MenuItem>
                                 </Select>
                             </FormControl>
+                            <FormControl variant="outlined" required>
+                                <InputLabel>Intencity</InputLabel>
+                                <Select
+                                    name="intensity"
+                                    fullWidth
+                                    value={formData.intensity}
+                                    onChange={handleChange}
+                                    label="Intensity"
+                                >
+                                    <MenuItem value="High">High</MenuItem>
+                                    <MenuItem value="Medium">Medium</MenuItem>
+                                    <MenuItem value="Low">Low</MenuItem>
+                                </Select>
+                            </FormControl>
+
                             <Button variant='outlined' type="submit" color='info' sx={{ margin: "24px" }}>Create Workout</Button>
 
                         </Box>
