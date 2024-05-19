@@ -15,6 +15,7 @@ from chat import chat
 from trainer_session import trainer_session
 from nutrition_plan import nutrition_plan
 from recommendation import recommendations
+from nutrition import nutrition
 
 CORS(db, resources={r"/*": {"origins": "*"}})
 
@@ -28,6 +29,7 @@ db.register_blueprint(chat)
 db.register_blueprint(trainer_session)
 db.register_blueprint(nutrition_plan)
 db.register_blueprint(recommendations)
+db.register_blueprint(nutrition)
 
 @db.route('/')
 

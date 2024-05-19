@@ -115,3 +115,27 @@ def finish():
     cursor.close()
 
     return jsonify({'message': 'Nutrition Plan finished successfully!'})
+
+@nutrition_plan.route('/log', methods=['GET'])
+def log():
+    fe_id = request.args.get('fe_id')
+
+    connection = connect()
+    cursor = connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM NutritionLog WHERE fe_id = %s', (fe_id,))
+    logs = cursor.fetchall()
+    if len(logs) == 0:
+        return jsonify({'message': 'Nutrition Logs not found!'}), 403
+
+    for log in logs:
+        plan_id = log['plan_id']
+        cursor.execute('SELECT * FROM NutritionPlan WHERE plan_id = %s', (plan_id,))
+        plan = cursor.fetchone()
+        cursor.execute('SELECT * FROM consists_of_nut WHERE plan_id = %s', (plan_id,))
+        nutritions = cursor.fetchall()
+        plan['nutritions'] = nutritions
+        log['plan'] = plan
+
+    cursor.close()
+
+    return jsonify({'nutrition_logs': logs})
