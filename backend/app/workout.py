@@ -28,7 +28,7 @@ def create_workout_trainer():
         sets = exercise['sets']
         reps = exercise['reps']
     
-        cursor.execute('SELECT * FROM Exercise WHERE name = %s', (exercise_name,))
+        cursor.execute('SELECT * FROM Exercise WHERE exercise_name = %s', (exercise_name,))
         exercise = cursor.fetchone()
         if exercise is None:
             return jsonify({'message': 'Exercise not found!'}), 403
@@ -64,7 +64,7 @@ def create_workout_fe():
         sets = exercise['sets']
         reps = exercise['reps']
     
-        cursor.execute('SELECT * FROM Exercise WHERE name = %s', (exercise_name,))
+        cursor.execute('SELECT * FROM Exercise WHERE exercise_name = %s', (exercise_name,))
         exercise = cursor.fetchone()
         if exercise is None:
             return jsonify({'message': 'Exercise not found!'}), 403
@@ -100,7 +100,7 @@ def list_workout():
 
 @workout.route('/list/fe', methods=['GET'])
 def list_workout_fe():
-    fe_id = request.json['fe_id']
+    fe_id = request.args.get('fe_id')
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -123,7 +123,7 @@ def list_workout_fe():
 
     return jsonify(workouts)
 
-@workout.route('/select')
+@workout.route('/select', methods=['POST'])
 def select_workout():
     workout_id = request.json['workout_id']
     fe_id = request.json['fe_id']
