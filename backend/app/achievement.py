@@ -18,7 +18,7 @@ def create():
     if fe is None:
         return jsonify({'message': 'Fitness enthusiast not found!'}), 403
     
-    cursor.execute('SELECET * FROM FitnessGoal WHERE goal_id = %s', (goal_id,))
+    cursor.execute('SELECT * FROM FitnessGoal WHERE goal_id = %s', (goal_id,))
     goal = cursor.fetchone()
     if goal is None:
         return jsonify({'message': 'Fitness Goal not found!'}), 403
@@ -28,7 +28,7 @@ def create():
     calorie = goal['calorie']
     start_time = goal['start_time']
     duration = goal['duration']
-    cursor.execute('INSERT INTO Achievement(achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', (achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration))
+    cursor.execute('INSERT INTO PastAchievement (achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', (achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration))
     cursor.execute('DELETE FROM FitnessGoal WHERE goal_id = %s', (goal_id,))
     connection.commit()
     cursor.close()
@@ -46,7 +46,7 @@ def list():
     if fe is None:
         return jsonify({'message': 'Fitness enthusiast not found!'}), 403
 
-    cursor.execute('SELECT * FROM Achievement WHERE fe_id = %s', (fe_id,))
+    cursor.execute('SELECT * FROM PastAchievement WHERE fe_id = %s', (fe_id,))
     achievements = cursor.fetchall()
     if achievements is None:
         return jsonify({'message': 'No Achievements were set!'}), 403

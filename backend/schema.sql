@@ -207,10 +207,11 @@ CREATE TABLE keeps_workout (
 
 CREATE TABLE consists_of_exercise (
     workout_id VARCHAR(36),
-    fe_id VARCHAR(36),
     trainer_id VARCHAR(36),
     exercise_id VARCHAR(36),
-    PRIMARY KEY(workout_id, fe_id, trainer_id, exercise_id),
+    set_count INT,
+    repetition INT,
+    PRIMARY KEY(workout_id, trainer_id, exercise_id),
     FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id),
     FOREIGN KEY(exercise_id) references Exercise(exercise_id)
 );
