@@ -6,7 +6,6 @@ const menuItems = [
     "My Workouts",
     "Stack Fire",
     "Head Soccer",
-    "Easter Egg",
     "Dart",
     "Tap Tap",
     "Fitness Game"
@@ -32,16 +31,6 @@ function ProfileMainPart() {
             if (selectedMenu === "Head Soccer")
             return <iframe
                 src="https://www.onlinegames.io/games/2023/construct/280/head-soccer-2022/index.html"
-                title="Stack Fire Ball Game"
-                width="100%"
-                height="100%"
-                style={{ border: 'none' }}
-            />
-
-
-            if (selectedMenu === "Easter Egg")
-            return <iframe
-                src="https://www.oyuncubey.com/en/games/BeerStrip.aspx"
                 title="Stack Fire Ball Game"
                 width="100%"
                 height="100%"
