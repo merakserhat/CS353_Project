@@ -24,6 +24,5 @@ def take_recom():
     cursor.execute('INSERT INTO recieves_recom (recommendation_id, fe_id) VALUES (%s, %s)', (recommendation['recommendation_id'], fe_id))
     connection.commit()
     cursor.close()
-    connection.close()
 
     return jsonify({'recommendation': recommendation})
