@@ -416,11 +416,31 @@ VALUES
 -- (1, 3, '2024-05-13'),
 -- (2, 4, '2024-05-14');
 
--- -- Inserting values into the Nutrition table
--- INSERT INTO Nutrition (nut_id, name, calorie, protein) 
--- VALUES 
--- (1, 'Chicken Breast', 165, 31),
--- (2, 'Brown Rice', 216, 5);
+-- Inserting values into the Nutrition table
+INSERT INTO Nutrition (nut_id, name, calorie, protein) 
+VALUES 
+(1, 'Chicken Breast', 165, 31),
+(2, 'Brown Rice', 216, 5),
+(3, 'Salmon Fillet', 206, 22),
+(4, 'Quinoa', 222, 8),
+(5, 'Eggs', 78, 6),
+(6, 'Spinach', 23, 2),
+(7, 'Avocado', 160, 2),
+(8, 'Broccoli', 55, 4),
+(9, 'Oatmeal', 145, 6),
+(10, 'Greek Yogurt', 59, 10),
+(11, 'Almonds', 575, 21),
+(12, 'Sweet Potato', 86, 2),
+(13, 'Tuna', 179, 39),
+(14, 'Lentils', 230, 18),
+(15, 'Banana', 105, 1),
+(16, 'Cottage Cheese', 120, 12),
+(17, 'Peanut Butter', 188, 8),
+(18, 'Whole Wheat Bread', 69, 4),
+(19, 'Turkey Breast', 135, 30),
+(20, 'Blueberries', 85, 1),
+(21, 'Beef Steak', 250, 26),
+(22, 'Quorn', 110, 15);
 
 -- Insert Chest Exercises
 INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES

@@ -29,7 +29,7 @@ def create_nutrition_plan():
     connection.close()
     return jsonify({'message': 'Nutrition Plan created successfully!'})
 
-@nutrition_plan.route('/delete', methods=['DELETE'])
+@nutrition_plan.route('/delete', methods=['POST'])
 def delete_nutrition_plan():
     plan_id = request.json['plan_id'] 
     connection = connect()
@@ -60,7 +60,7 @@ def add_food_to_nutrition_plan():
     connection.close()
     return jsonify({'message': 'Food added to Nutrition Plan successfully!'})
 
-@nutrition_plan.route('/delete_food', methods=['DELETE'])
+@nutrition_plan.route('/delete_food', methods=['POST'])
 def delete_food_from_nutrition_plan():
     plan_id = request.json['plan_id'] 
     nut_id = request.json['nut_id']
@@ -73,3 +73,15 @@ def delete_food_from_nutrition_plan():
     cursor.close()
     connection.close()
     return jsonify({'message': 'Food deleted from Nutrition Plan successfully!'})
+
+@nutrition_plan.route('/list_nutrition', methods=['GET'])
+def nutrition_list():
+    connection = connect()
+    cursor = connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM Nutrition")
+    nutrition = cursor.fetchall()
+    if not nutrition:
+        return 'No nutrition in the system'
+    
+    cursor.close()
+    return jsonify(nutrition)
