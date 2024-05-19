@@ -9,6 +9,7 @@ import CardDetailPage from "./pages/card_detail/CardDetailPage.tsx";
 import CreateBasePage from "./pages/create/CreateBasePage.tsx";
 import CreateWorkoutPage from "./pages/create_workout/CreateWorkoutPage.tsx";
 import { GlobalProvider } from "./data/context/GlobalProvider.tsx";
+import CreateNutritionPlanPage from "./pages/create_nutrition_plan/CreateNutritionPlan.tsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/detail" element={<CardDetailPage />} />
             <Route path="/create" element={<CreateBasePage />} />
             <Route path="/create/workout" element={<CreateWorkoutPage />} />
+            <Route path="/create/nutrition" element={<CreateNutritionPlanPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

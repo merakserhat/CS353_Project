@@ -5,7 +5,7 @@ interface GlobalProviderProps {
     children: ReactNode;
 }
 
-const exerc = [
+export const exerc = [
     {
         "description": "A compound exercise that targets the chest, shoulders, and triceps.",
         "exercise_id": "1",
@@ -338,6 +338,141 @@ const exerc = [
     }
 ];
 
+const nutirt = [
+    {
+        "calorie": 165,
+        "name": "Chicken Breast",
+        "nut_id": "1",
+        "protein": 31
+    },
+    {
+        "calorie": 59,
+        "name": "Greek Yogurt",
+        "nut_id": "10",
+        "protein": 10
+    },
+    {
+        "calorie": 575,
+        "name": "Almonds",
+        "nut_id": "11",
+        "protein": 21
+    },
+    {
+        "calorie": 86,
+        "name": "Sweet Potato",
+        "nut_id": "12",
+        "protein": 2
+    },
+    {
+        "calorie": 179,
+        "name": "Tuna",
+        "nut_id": "13",
+        "protein": 39
+    },
+    {
+        "calorie": 230,
+        "name": "Lentils",
+        "nut_id": "14",
+        "protein": 18
+    },
+    {
+        "calorie": 105,
+        "name": "Banana",
+        "nut_id": "15",
+        "protein": 1
+    },
+    {
+        "calorie": 120,
+        "name": "Cottage Cheese",
+        "nut_id": "16",
+        "protein": 12
+    },
+    {
+        "calorie": 188,
+        "name": "Peanut Butter",
+        "nut_id": "17",
+        "protein": 8
+    },
+    {
+        "calorie": 69,
+        "name": "Whole Wheat Bread",
+        "nut_id": "18",
+        "protein": 4
+    },
+    {
+        "calorie": 135,
+        "name": "Turkey Breast",
+        "nut_id": "19",
+        "protein": 30
+    },
+    {
+        "calorie": 216,
+        "name": "Brown Rice",
+        "nut_id": "2",
+        "protein": 5
+    },
+    {
+        "calorie": 85,
+        "name": "Blueberries",
+        "nut_id": "20",
+        "protein": 1
+    },
+    {
+        "calorie": 250,
+        "name": "Beef Steak",
+        "nut_id": "21",
+        "protein": 26
+    },
+    {
+        "calorie": 110,
+        "name": "Quorn",
+        "nut_id": "22",
+        "protein": 15
+    },
+    {
+        "calorie": 206,
+        "name": "Salmon Fillet",
+        "nut_id": "3",
+        "protein": 22
+    },
+    {
+        "calorie": 222,
+        "name": "Quinoa",
+        "nut_id": "4",
+        "protein": 8
+    },
+    {
+        "calorie": 78,
+        "name": "Eggs",
+        "nut_id": "5",
+        "protein": 6
+    },
+    {
+        "calorie": 23,
+        "name": "Spinach",
+        "nut_id": "6",
+        "protein": 2
+    },
+    {
+        "calorie": 160,
+        "name": "Avocado",
+        "nut_id": "7",
+        "protein": 2
+    },
+    {
+        "calorie": 55,
+        "name": "Broccoli",
+        "nut_id": "8",
+        "protein": 4
+    },
+    {
+        "calorie": 145,
+        "name": "Oatmeal",
+        "nut_id": "9",
+        "protein": 6
+    }
+];
+
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     // localStorage.clear();
 
@@ -349,6 +484,9 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     );
     const [exercises, setExercises] = useState<ExerciseModel[]>(
         localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")!) : exerc
+    );
+    const [nutritions, setNutritions] = useState<NutritionModel[]>(
+        localStorage.getItem("nutritions") ? JSON.parse(localStorage.getItem("nutritions")!) : nutirt
     );
 
     useEffect(() => {
@@ -366,8 +504,13 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
             localStorage.setItem("exercises", JSON.stringify(exercises));
     }, [exercises]);
 
+    useEffect(() => {
+        if (nutritions)
+            localStorage.setItem("nutritions", JSON.stringify(nutritions));
+    }, [nutritions]);
+
     return (
-        <GlobalContext.Provider value={{ globalVariable, setGlobalVariable, setUser, setExercises, user, exercises }}>
+        <GlobalContext.Provider value={{ globalVariable, setGlobalVariable, setUser, setExercises, user, exercises, setNutritions, nutritions }}>
             {children}
         </GlobalContext.Provider>
     );

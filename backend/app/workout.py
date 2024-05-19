@@ -13,6 +13,8 @@ def create_workout_trainer():
     name = request.json['name']
     audience = request.json['audience']
     description = request.json['description']
+    duration = request.json['duration']
+    intensity = request.json['intensity']
     exercises = request.json['exercises']
 
     connection = connect()
@@ -22,7 +24,7 @@ def create_workout_trainer():
     if trainer is None:
         return jsonify({'message': 'Trainer not found!'}), 403
     
-    cursor.execute('INSERT INTO WorkoutSession (workout_id, trainer_id, name, audience, description) VALUES (%s, %s, %s, %s, %s)', (workout_id, trainer_id, name, audience, description))
+    cursor.execute('INSERT INTO WorkoutSession (workout_id, trainer_id, name, audience, description, duration, intensity) VALUES (%s, %s, %s, %s, %s, %s, %s)', (workout_id, trainer_id, name, audience, description, duration, intensity))
     
     for exercise in exercises:
         exercise_id = exercise['exercise_id']
@@ -65,7 +67,10 @@ def create_workout_fe():
     name = request.json['name']
     audience = request.json['audience']
     description = request.json['description']
+    duration = request.json['duration']
+    intensity = request.json['intensity']
     exercises = request.json['exercises']
+    start_date = datetime.now() + timedelta(hours=3)
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -74,8 +79,8 @@ def create_workout_fe():
     if fe is None:
         return jsonify({'message': 'Fitness Enthusiast not found!'}), 403
     
-    cursor.execute('INSERT INTO WorkoutSession (workout_id, name, audience, description) VALUES (%s, %s, %s, %s)', (workout_id, name, audience, description))
-    cursor.execute('INSERT INTO has_workout (fe_id, workout_id) VALUES (%s, %s)', (fe_id, workout_id))
+    cursor.execute('INSERT INTO WorkoutSession (workout_id, name, audience, description, duration, intensity) VALUES (%s, %s, %s, %s, %s, %s)', (workout_id, name, audience, description, duration, intensity))
+    cursor.execute('INSERT INTO has_workout (fe_id, workout_id, start_date) VALUES (%s, %s, %s)', (fe_id, workout_id, start_date))
     
     for exercise in exercises:
         exercise_id = exercise['exercise_id']
@@ -113,9 +118,22 @@ def create_workout_fe():
 
 @workout.route('/list', methods=['GET'])
 def list_workout():
+    duration = request.args.get('duration')
+    intensity = request.args.get('intensity')
+
+    query = 'SELECT * FROM WorkoutSession WHERE trainer_id IS NOT NULL'
+    query_params = []
+    if duration is not None:
+        query += ' AND duration = %s'
+        query_params.append(duration)
+
+    if intensity is not None:
+        query += ' AND intensity LIKE %s'
+        query_params.append(f"%{intensity}%")
+    
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM WorkoutSession WHERE trainer_id IS NOT NULL')
+    cursor.execute(query, query_params)
     workouts = cursor.fetchall()
     if len(workouts) == 0:
         return jsonify({'message': 'No Workout Sessions exists!'}), 403
@@ -200,6 +218,7 @@ def list_workout_fe():
 def pick_workout():
     workout_id = request.json['workout_id']
     fe_id = request.json['fe_id']
+    start_date = datetime.now() + timedelta(hours=3)
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -218,7 +237,7 @@ def pick_workout():
     if has_workout is not None:
         return jsonify({'message': 'Workout Session already picked!'}), 403
     
-    cursor.execute('INSERT INTO has_workout (fe_id, workout_id) VALUES (%s, %s)', (fe_id, workout_id))
+    cursor.execute('INSERT INTO has_workout (fe_id, workout_id, start_date) VALUES (%s, %s, %s)', (fe_id, workout_id, start_date))
 
     connection.commit()
     cursor.close()
@@ -228,9 +247,9 @@ def pick_workout():
 @workout.route('/finish', methods=['POST'])
 def finish_workout():
     workoutlog_id = str(uuid.uuid4())
-    date_time = datetime.now() + timedelta(hours=3)
     fe_id = request.json['fe_id']
     workout_id = request.json['workout_id']
+    end_date = datetime.now() + timedelta(hours=3)
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -239,7 +258,14 @@ def finish_workout():
     if workout is None:
         return jsonify({'message': 'Workout Session not found!'}), 403,
 
-    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, workout_id, date_time) VALUES (%s, %s, %s, %s)', (workoutlog_id, fe_id, workout_id, date_time,))
+    cursor.execute('SELECT * FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id))
+    has_workout = cursor.fetchone()
+    if has_workout is None:
+        return jsonify({'message': 'Workout Session not picked!'}), 403
+    
+    start_date = has_workout['start_date']
+
+    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, workout_id, start_date, end_date) VALUES (%s, %s, %s, %s, %s)', (workoutlog_id, fe_id, workout_id, start_date, end_date))
     cursor.execute('DELETE FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id,))
     connection.commit()
     cursor.close()
@@ -260,11 +286,15 @@ def log_workout():
     workout_list = list()
     for workout_log in workout_logs:
         workout_id = workout_log['workout_id']
+        start_date = workout_log['start_date']
+        end_date = workout_log['end_date']
         cursor.execute('SELECT * FROM WorkoutSession WHERE workout_id = %s', (workout_id,))
         workout = cursor.fetchone()
         if workout is None:
             return jsonify({'message': 'Workout Session not found!'}), 403
         
+        workout['start_date'] = start_date
+        workout['end_date'] = end_date
         cursor.execute('SELECT * FROM consists_of_exercise WHERE workout_id = %s', (workout_id,))
         exercises = cursor.fetchall()
 
@@ -288,3 +318,37 @@ def log_workout():
     cursor.close()
 
     return jsonify(workout_list)
+
+@workout.route('/detail', methods=['GET'])
+def detail_workout():
+    workout_id = request.args.get('workout_id')
+
+    connection = connect()
+    cursor = connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM WorkoutSession WHERE workout_id = %s', (workout_id,))
+    workout = cursor.fetchone()
+    if workout is None:
+        return jsonify({'message': 'Workout Session not found!'}), 403
+
+    cursor.execute('SELECT * FROM consists_of_exercise WHERE workout_id = %s', (workout_id,))
+    exercises = cursor.fetchall()
+
+    exercise_list = list()
+    for exercise in exercises:
+        exercise_id = exercise['exercise_id']
+        set_count = exercise['set_count']
+        repetition = exercise['repetition']
+        cursor.execute('SELECT * FROM Exercise WHERE exercise_id = %s', (exercise_id,))
+        exercise = cursor.fetchone()
+        if exercise is None:
+            return jsonify({'message': 'Exercise not found!'}), 403
+        
+        exercise['set_count'] = set_count
+        exercise['repetition'] = repetition
+        exercise_list.append(exercise)
+
+    workout['exercises'] = exercise_list
+
+    cursor.close()
+
+    return jsonify(workout)

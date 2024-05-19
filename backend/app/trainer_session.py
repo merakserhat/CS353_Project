@@ -106,6 +106,42 @@ def list_sessions():
     return jsonify(sessions)
 
 
+@trainer_session.route('/fe/list_trainers', methods=['GET'])
+def list_trainers():
+    connection = connect()
+    cursor = connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    specialization = request.args.get('specialization')
+    fee_max = request.args.get('fee_max')
+    fee_min = request.args.get('fee_min')
+    name = request.args.get('name')
+
+
+    query = "SELECT * FROM Trainer WHERE 1=1"
+
+    query_params = []
+
+    if specialization:
+        query += " AND specialization LIKE %s"
+        query_params.append(f"%{specialization}%")
+    
+    if fee_min is not None:
+        query += " AND fee >= %s"
+        query_params.append(fee_min)
+    
+    if fee_max:
+        query += " AND fee <= %s"
+        query_params.append(fee_max)
+    
+
+    cursor.execute(query, query_params)
+    trainers = cursor.fetchall()
+
+    cursor.close()
+    return jsonify(trainers)
+
+
+
 @trainer_session.route('/trainer/sessions', methods=['GET'])
 def list_trainer_sessions():
     trainer_id = request.args.get('trainer_id')
