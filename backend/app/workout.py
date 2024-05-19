@@ -172,7 +172,7 @@ def list_workout_fe():
 
     cursor.execute('SELECT * FROM has_workout WHERE fe_id = %s', (fe_id,))
     workouts = cursor.fetchall()
-    if workouts is None:
+    if len(workouts) == 0:
         return jsonify({'message': 'No Workout Sessions exists!'}), 403
 
     workout_list = list()
@@ -248,15 +248,7 @@ def finish_workout():
     if workout is None:
         return jsonify({'message': 'Workout Session not found!'}), 403,
 
-    name = workout['name']
-    audience = workout['audience']
-    description = workout['description']
-    cursor.execute('SELECT * FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id))
-    workout = cursor.fetchone()
-    if workout is None:
-        return jsonify({'message': 'Workout Session not found for the Fitness Enthusiast!'}), 403
-    
-    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, name, audience, description, date_time) VALUES (%s, %s, %s, %s, %s, %s)', (workoutlog_id, fe_id, name, audience, description, date_time))
+    cursor.execute('INSERT INTO WorkoutLog (workoutlog_id, fe_id, workout_id, date_time) VALUES (%s, %s, %s)', (workoutlog_id, fe_id, workout_id, date_time))
     cursor.execute('DELETE FROM has_workout WHERE fe_id = %s AND workout_id = %s', (fe_id, workout_id))
     connection.commit()
     cursor.close()
@@ -271,14 +263,20 @@ def log_workout():
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM WorkoutLog WHERE fe_id = %s', (fe_id,))
     workout_logs = cursor.fetchall()
-    if workout_logs is None:
+    if len(workout_logs) == 0:
         return jsonify({'message': 'No Workout Logs exists!'}), 403
-
+    
+    workout_list = list()
     for workout_log in workout_logs:
-        workoutlog_id = workout_log['workoutlog_id']
-        cursor.execute('SELECT * FROM consists_of_exercise WHERE workoutlog_id = %s', (workoutlog_id,))
-        exercises = cursor.fetchall()
+        workout_id = workout_log['workout_id']
+        cursor.execute('SELECT * FROM WorkoutSession WHERE workout_id = %s', (workout_id,))
+        workout = cursor.fetchone()
+        if workout is None:
+            return jsonify({'message': 'Workout Session not found!'}), 403
         
+        cursor.execute('SELECT * FROM consists_of_exercise WHERE workout_id = %s', (workout_id,))
+        exercises = cursor.fetchall()
+
         exercise_list = list()
         for exercise in exercises:
             exercise_id = exercise['exercise_id']
@@ -292,9 +290,10 @@ def log_workout():
             exercise['set_count'] = set_count
             exercise['repetition'] = repetition
             exercise_list.append(exercise)
-
-        workout_log['exercises'] = exercise_list
+        
+        workout['exercises'] = exercise_list
+        workout_list.append(workout)
 
     cursor.close()
 
-    return jsonify(workout_logs)
+    return jsonify(workout_list)
