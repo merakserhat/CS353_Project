@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import * as React from 'react';
 import MainAppBar from "../../components/app_bar/AppBar";
 import HomeSideBar from "../../components/home_side_bar/HomeSideBar";
-import TrainingCard from '../../components/nutrition_card/NutritionCard';
 import ProfileInfoPart from './parts/ProfileInfoPart/ProfileInfoPart';
 import ProfileMainPart from './parts/ProfileMainPart/ProfileMainPart';
 
