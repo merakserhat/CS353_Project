@@ -431,80 +431,80 @@ VALUES
 -- (2, 'Brown Rice', 216, 5);
 
 -- Insert Chest Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('1', 'Bench Press (Barbell or Dumbbell)', 'Chest', 'A compound exercise that targets the chest, shoulders, and triceps.'),
-('2', 'Incline Bench Press', 'Chest', 'A variation of the bench press that targets the upper chest.'),
-('3', 'Decline Bench Press', 'Chest', 'A variation of the bench press that targets the lower chest.'),
-('4', 'Chest Fly (Machine or Dumbbell)', 'Chest', 'An isolation exercise that targets the chest muscles.'),
-('5', 'Push-Ups', 'Chest', 'A bodyweight exercise that targets the chest, shoulders, and triceps.'),
-('6', 'Cable Crossovers', 'Chest', 'An isolation exercise that targets the chest muscles using cables.'),
-('7', 'Pec Deck Machine', 'Chest', 'An isolation machine exercise that targets the chest muscles.'),
-('8', 'Dips', 'Chest', 'A bodyweight exercise that targets the chest, shoulders, and triceps.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('1', 'Bench Press', 'Barbell', 'Chest', 'A compound exercise that targets the chest, shoulders, and triceps.'),
+('2', 'Incline Bench Press', 'Barbell', 'Chest', 'A variation of the bench press that targets the upper chest.'),
+('3', 'Decline Bench Press', 'Barbell', 'Chest', 'A variation of the bench press that targets the lower chest.'),
+('4', 'Chest Fly', 'Dumbbell', 'Chest', 'An isolation exercise that targets the chest muscles.'),
+('5', 'Push-Ups', 'Bodyweight', 'Chest', 'A bodyweight exercise that targets the chest, shoulders, and triceps.'),
+('6', 'Cable Crossovers', 'Cable', 'Chest', 'An isolation exercise that targets the chest muscles using cables.'),
+('7', 'Pec Deck Machine', 'Machine', 'Chest', 'An isolation machine exercise that targets the chest muscles.'),
+('8', 'Dips', 'Bodyweight', 'Chest', 'A bodyweight exercise that targets the chest, shoulders, and triceps.');
 
 -- Insert Back Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('9', 'Pull-Ups/Chin-Ups', 'Back', 'A bodyweight exercise that targets the upper back and biceps.'),
-('10', 'Deadlifts', 'Back', 'A compound exercise that targets the back, glutes, and hamstrings.'),
-('11', 'Bent Over Rows (Barbell or Dumbbell)', 'Back', 'A compound exercise that targets the middle back and lats.'),
-('12', 'Lat Pulldowns', 'Back', 'An exercise that targets the latissimus dorsi muscles.'),
-('13', 'Seated Row (Cable)', 'Back', 'A compound exercise that targets the middle back.'),
-('14', 'T-Bar Rows', 'Back', 'A compound exercise that targets the middle back and lats.'),
-('15', 'Single-Arm Dumbbell Row', 'Back', 'An exercise that targets the lats and middle back.'),
-('16', 'Face Pulls', 'Back', 'An exercise that targets the rear deltoids and upper back.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('9', 'Pull-Ups/Chin-Ups', 'Bodyweight', 'Back', 'A bodyweight exercise that targets the upper back and biceps.'),
+('10', 'Deadlifts', 'Barbell', 'Back', 'A compound exercise that targets the back, glutes, and hamstrings.'),
+('11', 'Bent Over Rows', 'Barbell', 'Back', 'A compound exercise that targets the middle back and lats.'),
+('12', 'Lat Pulldowns', 'Machine', 'Back', 'An exercise that targets the latissimus dorsi muscles.'),
+('13', 'Seated Row', 'Cable', 'Back', 'A compound exercise that targets the middle back.'),
+('14', 'T-Bar Rows', 'Machine', 'Back', 'A compound exercise that targets the middle back and lats.'),
+('15', 'Single-Arm Dumbbell Row', 'Dumbbell', 'Back', 'An exercise that targets the lats and middle back.'),
+('16', 'Face Pulls', 'Cable', 'Back', 'An exercise that targets the rear deltoids and upper back.');
 
 -- Insert Shoulder Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('17', 'Overhead Press (Barbell or Dumbbell)', 'Shoulders', 'A compound exercise that targets the shoulder muscles.'),
-('18', 'Lateral Raises', 'Shoulders', 'An isolation exercise that targets the side deltoids.'),
-('19', 'Front Raises', 'Shoulders', 'An isolation exercise that targets the front deltoids.'),
-('20', 'Reverse Pec Deck (Rear Delt Fly)', 'Shoulders', 'An isolation exercise that targets the rear deltoids.'),
-('21', 'Arnold Press', 'Shoulders', 'A variation of the overhead press that targets all three heads of the deltoid.'),
-('22', 'Upright Rows', 'Shoulders', 'An exercise that targets the shoulder muscles and upper traps.'),
-('23', 'Cable Lateral Raises', 'Shoulders', 'An isolation exercise that targets the side deltoids using cables.'),
-('24', 'Shrugs', 'Shoulders', 'An exercise that targets the upper trapezius muscles.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('17', 'Overhead Press', 'Barbell', 'Shoulders', 'A compound exercise that targets the shoulder muscles.'),
+('18', 'Lateral Raises', 'Dumbbell', 'Shoulders', 'An isolation exercise that targets the side deltoids.'),
+('19', 'Front Raises', 'Dumbbell', 'Shoulders', 'An isolation exercise that targets the front deltoids.'),
+('20', 'Reverse Pec Deck', 'Machine', 'Shoulders', 'An isolation exercise that targets the rear deltoids.'),
+('21', 'Arnold Press', 'Dumbbell', 'Shoulders', 'A variation of the overhead press that targets all three heads of the deltoid.'),
+('22', 'Upright Rows', 'Barbell', 'Shoulders', 'An exercise that targets the shoulder muscles and upper traps.'),
+('23', 'Cable Lateral Raises', 'Cable', 'Shoulders', 'An isolation exercise that targets the side deltoids using cables.'),
+('24', 'Shrugs', 'Dumbbell', 'Shoulders', 'An exercise that targets the upper trapezius muscles.');
 
 -- Insert Bicep Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('25', 'Barbell Curls', 'Biceps', 'A compound exercise that targets the bicep muscles.'),
-('26', 'Dumbbell Curls', 'Biceps', 'An isolation exercise that targets the bicep muscles.'),
-('27', 'Hammer Curls', 'Biceps', 'An exercise that targets the biceps and forearms.'),
-('28', 'Preacher Curls', 'Biceps', 'An isolation exercise that targets the biceps using a preacher bench.'),
-('29', 'Concentration Curls', 'Biceps', 'An isolation exercise that targets the biceps.'),
-('30', 'Cable Curls', 'Biceps', 'An isolation exercise that targets the biceps using cables.'),
-('31', 'EZ-Bar Curls', 'Biceps', 'An isolation exercise that targets the biceps using an EZ-bar.'),
-('32', 'Incline Dumbbell Curls', 'Biceps', 'An isolation exercise that targets the biceps on an incline bench.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('25', 'Barbell Curls', 'Barbell', 'Biceps', 'A compound exercise that targets the bicep muscles.'),
+('26', 'Dumbbell Curls', 'Dumbbell', 'Biceps', 'An isolation exercise that targets the bicep muscles.'),
+('27', 'Hammer Curls', 'Dumbbell', 'Biceps', 'An exercise that targets the biceps and forearms.'),
+('28', 'Preacher Curls', 'Barbell', 'Biceps', 'An isolation exercise that targets the biceps using a preacher bench.'),
+('29', 'Concentration Curls', 'Dumbbell', 'Biceps', 'An isolation exercise that targets the biceps.'),
+('30', 'Cable Curls', 'Cable', 'Biceps', 'An isolation exercise that targets the biceps using cables.'),
+('31', 'EZ-Bar Curls', 'EZ-Bar', 'Biceps', 'An isolation exercise that targets the biceps using an EZ-bar.'),
+('32', 'Incline Dumbbell Curls', 'Dumbbell', 'Biceps', 'An isolation exercise that targets the biceps on an incline bench.');
 
 -- Insert Tricep Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('33', 'Tricep Dips', 'Triceps', 'A bodyweight exercise that targets the triceps.'),
-('34', 'Tricep Pushdowns (Cable)', 'Triceps', 'An isolation exercise that targets the triceps using cables.'),
-('35', 'Skull Crushers', 'Triceps', 'An isolation exercise that targets the triceps.'),
-('36', 'Overhead Tricep Extension (Dumbbell or Cable)', 'Triceps', 'An isolation exercise that targets the triceps.'),
-('37', 'Close-Grip Bench Press', 'Triceps', 'A compound exercise that targets the triceps.'),
-('38', 'Tricep Kickbacks', 'Triceps', 'An isolation exercise that targets the triceps.'),
-('39', 'Single-Arm Tricep Extension', 'Triceps', 'An isolation exercise that targets the triceps.'),
-('40', 'Rope Pushdowns', 'Triceps', 'An isolation exercise that targets the triceps using a rope attachment.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('33', 'Tricep Dips', 'Bodyweight', 'Triceps', 'A bodyweight exercise that targets the triceps.'),
+('34', 'Tricep Pushdowns', 'Cable', 'Triceps', 'An isolation exercise that targets the triceps using cables.'),
+('35', 'Skull Crushers', 'EZ-Bar', 'Triceps', 'An isolation exercise that targets the triceps.'),
+('36', 'Overhead Tricep Extension', 'Dumbbell', 'Triceps', 'An isolation exercise that targets the triceps.'),
+('37', 'Close-Grip Bench Press', 'Barbell', 'Triceps', 'A compound exercise that targets the triceps.'),
+('38', 'Tricep Kickbacks', 'Dumbbell', 'Triceps', 'An isolation exercise that targets the triceps.'),
+('39', 'Single-Arm Tricep Extension', 'Dumbbell', 'Triceps', 'An isolation exercise that targets the triceps.'),
+('40', 'Rope Pushdowns', 'Cable', 'Triceps', 'An isolation exercise that targets the triceps using a rope attachment.');
 
 -- Insert Leg Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('41', 'Squats (Barbell or Dumbbell)', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.'),
-('42', 'Leg Press', 'Legs', 'A compound machine exercise that targets the quads, glutes, and hamstrings.'),
-('43', 'Lunges (Walking or Stationary)', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.'),
-('44', 'Leg Extensions', 'Legs', 'An isolation exercise that targets the quads.'),
-('45', 'Leg Curls (Hamstring Curls)', 'Legs', 'An isolation exercise that targets the hamstrings.'),
-('46', 'Romanian Deadlifts', 'Legs', 'A compound exercise that targets the hamstrings and glutes.'),
-('47', 'Calf Raises', 'Legs', 'An isolation exercise that targets the calf muscles.'),
-('48', 'Bulgarian Split Squats', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('41', 'Squats', 'Barbell', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.'),
+('42', 'Leg Press', 'Machine', 'Legs', 'A compound machine exercise that targets the quads, glutes, and hamstrings.'),
+('43', 'Lunges', 'Bodyweight', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.'),
+('44', 'Leg Extensions', 'Machine', 'Legs', 'An isolation exercise that targets the quads.'),
+('45', 'Leg Curls', 'Machine', 'Legs', 'An isolation exercise that targets the hamstrings.'),
+('46', 'Romanian Deadlifts', 'Barbell', 'Legs', 'A compound exercise that targets the hamstrings and glutes.'),
+('47', 'Calf Raises', 'Bodyweight', 'Legs', 'An isolation exercise that targets the calf muscles.'),
+('48', 'Bulgarian Split Squats', 'Dumbbell', 'Legs', 'A compound exercise that targets the quads, glutes, and hamstrings.');
 
 -- Insert Abs Exercises
-INSERT INTO Exercise (exercise_id, exercise_name, target_region, description) VALUES
-('49', 'Planks', 'Abs', 'An isometric core exercise that targets the abs and lower back.'),
-('50', 'Russian Twists', 'Abs', 'An exercise that targets the obliques and abs.'),
-('51', 'Leg Raises', 'Abs', 'An exercise that targets the lower abs.'),
-('52', 'Bicycle Crunches', 'Abs', 'An exercise that targets the abs and obliques.'),
-('53', 'Ab Rollouts', 'Abs', 'An exercise that targets the entire core.'),
-('54', 'Hanging Knee Raises', 'Abs', 'An exercise that targets the lower abs.'),
-('55', 'Sit-Ups', 'Abs', 'An exercise that targets the abs.');
+INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, description) VALUES
+('49', 'Planks', 'Bodyweight', 'Abs', 'An isometric core exercise that targets the abs and lower back.'),
+('50', 'Russian Twists', 'Bodyweight', 'Abs', 'An exercise that targets the obliques and abs.'),
+('51', 'Leg Raises', 'Bodyweight', 'Abs', 'An exercise that targets the lower abs.'),
+('52', 'Bicycle Crunches', 'Bodyweight', 'Abs', 'An exercise that targets the abs and obliques.'),
+('53', 'Ab Rollouts', 'Ab Roller', 'Abs', 'An exercise that targets the entire core.'),
+('54', 'Hanging Knee Raises', 'Bodyweight', 'Abs', 'An exercise that targets the lower abs.'),
+('55', 'Sit-Ups', 'Bodyweight', 'Abs', 'An exercise that targets the abs.');
 
 -- Inserting values into the ExerciseLog table
 INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
