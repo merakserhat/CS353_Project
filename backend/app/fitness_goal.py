@@ -31,7 +31,7 @@ def create():
 
 @fitness_goal.route('/list', methods=['GET'])
 def list():
-    fe_id = request.json['fe_id']
+    fe_id = request.args.get('fe_id')
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM FitnessEnthusiast WHERE fe_id = %s', (fe_id,))
