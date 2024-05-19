@@ -25,11 +25,11 @@ def create_workout_trainer():
     cursor.execute('INSERT INTO WorkoutSession (workout_id, trainer_id, name, audience, description) VALUES (%s, %s, %s, %s, %s)', (workout_id, trainer_id, name, audience, description))
     
     for exercise in exercises:
-        exercise_id = exercise['exercise_id']
+        exercise_name = exercise['exercise_name']
         sets = exercise['sets']
         reps = exercise['reps']
     
-        cursor.execute('SELECT * FROM Exercise WHERE exercise_id = %s', (exercise_id,))
+        cursor.execute('SELECT * FROM Exercise WHERE exercise_name = %s', (exercise_name,))
         exercise = cursor.fetchone()
         if exercise is None:
             return jsonify({'message': 'Exercise not found!'}), 403
@@ -115,7 +115,6 @@ def list_workout():
 
     cursor.close()
 
-
     return jsonify(workouts)
 
 @workout.route('/list/fe', methods=['GET'])
@@ -132,7 +131,7 @@ def list_workout_fe():
     cursor.execute('SELECT * FROM has_workout WHERE fe_id = %s', (fe_id,))
     workouts = cursor.fetchall()
     if workouts is None:
-        return jsonify({'message': 'No Workout Sessions found!'}), 403
+        return jsonify({'message': 'No Workout Sessions exists!'}), 403
 
     workout_list = list()
     for workout in workouts:
@@ -144,11 +143,6 @@ def list_workout_fe():
         
         workout_list.append(workout)
     
-
-    if len(workout_list) == 0:
-        return jsonify({'message': 'No Workout Sessions exists!'}), 403
-
-    exercise_list = list()
     for workout in workout_list:
         workout_id = workout['workout_id']
         cursor.execute('SELECT * FROM consists_of_exercise WHERE workout_id = %s', (workout_id,))
@@ -171,9 +165,6 @@ def list_workout_fe():
         workout['exercises'] = exercise_list
 
     cursor.close()
-
-    if len(workout_list) == 0:
-        return jsonify({'message': 'No Workout Sessions exists!'}), 403
 
     return jsonify(workout_list)
 
