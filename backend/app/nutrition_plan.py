@@ -5,7 +5,6 @@ import uuid
 
 nutrition_plan = Blueprint('nutrition_plan', __name__, url_prefix='/nutrition_plan')
 
-
 @nutrition_plan.route('/create', methods=['POST'])
 def create_nutrition_plan():
     plan_id = str(uuid.uuid4())
@@ -13,7 +12,6 @@ def create_nutrition_plan():
     name = request.json['name']
     content = request.json['content']
     foods = request.json['foods']  
-
 
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
@@ -31,7 +29,6 @@ def create_nutrition_plan():
     connection.close()
     return jsonify({'message': 'Nutrition Plan created successfully!'})
 
-
 @nutrition_plan.route('/delete', methods=['DELETE'])
 def delete_nutrition_plan():
     plan_id = request.json['plan_id'] 
@@ -43,7 +40,6 @@ def delete_nutrition_plan():
     cursor.close()
     connection.close()
     return jsonify({'message': 'Nutrition Plan deleted successfully!'})
-
 
 @nutrition_plan.route('/add_food', methods=['POST'])
 def add_food_to_nutrition_plan():

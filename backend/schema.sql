@@ -178,6 +178,7 @@ CREATE TABLE WorkoutLog (
 
 CREATE TABLE WorkoutSession (
     workout_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36),
     name VARCHAR(50),
     audience VARCHAR(20),
     description VARCHAR(255),
@@ -188,6 +189,7 @@ CREATE TABLE WorkoutSession (
 CREATE TABLE has_workout (
     fe_id VARCHAR(36) NOT NULL,
     workout_id VARCHAR(36) NOT NULL,
+    trainer_id VARCHAR(36),
     PRIMARY KEY(fe_id, workout_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
     FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
