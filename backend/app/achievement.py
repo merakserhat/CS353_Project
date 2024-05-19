@@ -7,7 +7,7 @@ achievement = Blueprint('achievement', __name__, url_prefix='/achievement')
 
 @achievement.route('/create', methods=['POST'])
 def create():
-    achievement_id = str(uuid.uuid4())
+    ach_id = str(uuid.uuid4())
     fe_id = request.json['fe_id']
     goal_id = request.json['goal_id']
 
@@ -28,12 +28,14 @@ def create():
     calorie = goal['calorie']
     start_time = goal['start_time']
     duration = goal['duration']
-    cursor.execute('INSERT INTO PastAchievement (achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', (achievement_id, fe_id, goal_id, name, target_region, calorie, start_time, duration))
+    cursor.execute('INSERT INTO PastAchievement (ach_id, fe_id, name, target_region, calorie, start_time, duration) VALUES (%s, %s, %s, %s, %s, %s, %s)', (ach_id, fe_id, name, target_region, calorie, start_time, duration))
     cursor.execute('DELETE FROM FitnessGoal WHERE goal_id = %s', (goal_id,))
     connection.commit()
+    cursor.execute('SELECT * FROM PastAchievement WHERE ach_id = %s', (ach_id,))
+    achievement = cursor.fetchone()
     cursor.close()
 
-    return jsonify({'message': 'Achievement set successfully!'})
+    return jsonify({'message': 'Achievement set successfully!', 'Achievement': achievement,})
 
 @achievement.route('/list', methods=['GET'])
 def list():

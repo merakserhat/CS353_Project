@@ -80,6 +80,7 @@ CREATE TABLE Exercise (
     exercise_name VARCHAR(255),
     target_region VARCHAR(255),
     description VARCHAR(255),
+    equipment VARCHAR(255),
     PRIMARY KEY(exercise_id)
 );
 
