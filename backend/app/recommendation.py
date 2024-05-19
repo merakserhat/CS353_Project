@@ -4,9 +4,9 @@ from database import connect
 import uuid
 import random
 
-user = Blueprint('user', __name__, url_prefix='/user')
+recommendations = Blueprint('user', __name__, url_prefix='/recommendations')
 
-@user.route('/take_recom', methods=['GET'])
+@recommendations.route('/take', methods=['GET'])
 def take_recom():
     fe_id = request.json['fe_id'] 
 

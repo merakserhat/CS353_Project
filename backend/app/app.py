@@ -14,6 +14,7 @@ from workout import workout
 from chat import chat
 from trainer_session import trainer_session
 from nutrition_plan import nutrition_plan
+from recommendations import recommendations
 
 CORS(db)
 
@@ -26,6 +27,7 @@ db.register_blueprint(workout)
 db.register_blueprint(chat)
 db.register_blueprint(trainer_session)
 db.register_blueprint(nutrition_plan)
+db.register_blueprint(recommendations)
 
 @db.route('/')
 
