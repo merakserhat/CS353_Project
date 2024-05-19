@@ -118,9 +118,22 @@ def create_workout_fe():
 
 @workout.route('/list', methods=['GET'])
 def list_workout():
+    duration = request.args.get('duration')
+    intensity = request.args.get('intensity')
+
+    query = 'SELECT * FROM WorkoutSession WHERE trainer_id IS NOT NULL'
+    query_params = []
+    if duration is not None:
+        query += ' AND duration = %s'
+        query_params.append(duration)
+
+    if intensity is not None:
+        query += ' AND intensity LIKE %s'
+        query_params.append(f"%{intensity}%")
+    
     connection = connect()
     cursor = connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM WorkoutSession WHERE trainer_id IS NOT NULL')
+    cursor.execute(query, query_params)
     workouts = cursor.fetchall()
     if len(workouts) == 0:
         return jsonify({'message': 'No Workout Sessions exists!'}), 403
