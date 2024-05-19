@@ -140,17 +140,19 @@ CREATE TABLE NutritionPlan (
     plan_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     name VARCHAR(50),
-    content VARCHAR(255),
+    description VARCHAR(255),
     PRIMARY KEY(plan_id, fe_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE NutritionLog (
     nutlog_id VARCHAR(36) NOT NULL,
+    plan_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     date_time DATETIME,
-    PRIMARY KEY(nutlog_id, fe_id),
-    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
+    PRIMARY KEY(nutlog_id, plan_id, fe_id),
+    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id),
+    FOREIGN KEY(plan_id) references NutritionPlan(plan_id)
 );
 
 CREATE TABLE Nutrition (
@@ -159,14 +161,6 @@ CREATE TABLE Nutrition (
     calorie INT,
     protein INT,
     PRIMARY KEY(nut_id)
-);
-
-CREATE TABLE ExerciseLog (
-    exlog_id VARCHAR(36) NOT NULL,
-    fe_id VARCHAR(36) NOT NULL,
-    date_time DATETIME,
-    PRIMARY KEY(exlog_id, fe_id),
-    FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
 );
 
 CREATE TABLE WorkoutLog (
@@ -207,33 +201,12 @@ CREATE TABLE consists_of_exercise (
     FOREIGN KEY(exercise_id) references Exercise(exercise_id)
 );
 
-CREATE TABLE keeps_exercise (
-    exlog_id VARCHAR(36) NOT NULL,
-    fe_id VARCHAR(36) NOT NULL,
-    exercise_id VARCHAR(36) NOT NULL,
-    set_count INT,
-    repetition INT,
-    PRIMARY KEY(exlog_id, fe_id, exercise_id),
-    FOREIGN KEY(exlog_id, fe_id) references ExerciseLog(exlog_id, fe_id),
-    FOREIGN KEY(exercise_id) references Exercise(exercise_id)
-);
-
 CREATE TABLE recieves_recom (
     recommendation_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     PRIMARY KEY(recommendation_id, fe_id),
     FOREIGN KEY(recommendation_id) references Recommendation(recommendation_id),
     FOREIGN KEY(fe_id) references FitnessEnthusiast(fe_id)
-);
-
-CREATE TABLE keeps_nutrition (
-    nut_id VARCHAR(36) NOT NULL,
-    nutlog_id VARCHAR(36) NOT NULL,
-    fe_id VARCHAR(36) NOT NULL,
-    portion INT,
-    PRIMARY KEY(nut_id, nutlog_id, fe_id),
-    FOREIGN KEY(nut_id) references Nutrition(nut_id),
-    FOREIGN KEY(nutlog_id, fe_id) references NutritionLog(nutlog_id, fe_id)
 );
 
 CREATE TABLE enters_challenge (
@@ -245,8 +218,8 @@ CREATE TABLE enters_challenge (
 );
 
 CREATE TABLE consists_of_nut (
-    nut_id VARCHAR(36) NOT NULL,
     plan_id VARCHAR(36) NOT NULL,
+    nut_id VARCHAR(36) NOT NULL,
     fe_id VARCHAR(36) NOT NULL,
     portion INT,
     PRIMARY KEY(nut_id, plan_id, fe_id),
@@ -517,17 +490,6 @@ INSERT INTO Exercise (exercise_id, exercise_name, equipment, target_region, desc
 ('53', 'Ab Rollouts', 'Ab Roller', 'Abs', 'An exercise that targets the entire core.'),
 ('54', 'Hanging Knee Raises', 'Bodyweight', 'Abs', 'An exercise that targets the lower abs.'),
 ('55', 'Sit-Ups', 'Bodyweight', 'Abs', 'An exercise that targets the abs.');
-
--- Inserting values into the ExerciseLog table
-INSERT INTO ExerciseLog (exlog_id, fe_id, date_time) 
-VALUES 
-(1, 3, '2024-05-13'),
-(2, 4, '2024-05-14');
-
-INSERT INTO keeps_exercise (exlog_id, fe_id, exercise_id, set_count, repetition)
-VALUES 
-(1, 3, 1, 3, 10),
-(2, 4, 2, 1, 5);
 
 -- INSERT INTO Equipment (equipment_id, name) VALUES
 -- ('1', 'Barbell'),

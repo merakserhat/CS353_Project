@@ -28,13 +28,6 @@ def create_workout_trainer():
         exercise_id = exercise['exercise_id']
         sets = exercise['sets']
         reps = exercise['reps']
-    
-        cursor.execute('SELECT * FROM Exercise WHERE exercise_id = %s', (exercise_id,))
-        exercise = cursor.fetchone()
-        if exercise is None:
-            return jsonify({'message': 'Exercise not found!'}), 403
-        exercise_id = exercise['exercise_id']
-        
         cursor.execute('INSERT INTO consists_of_exercise (workout_id, trainer_id, exercise_id, set_count, repetition) VALUES (%s, %s, %s, %s, %s)', (workout_id, trainer_id, exercise_id, sets, reps))
 
     connection.commit()
@@ -88,13 +81,6 @@ def create_workout_fe():
         exercise_id = exercise['exercise_id']
         sets = exercise['sets']
         reps = exercise['reps']
-    
-        cursor.execute('SELECT * FROM Exercise WHERE exercise_id = %s', (exercise_id,))
-        exercise = cursor.fetchone()
-        if exercise is None:
-            return jsonify({'message': 'Exercise not found!'}), 403
-        exercise_id = exercise['exercise_id']
-        
         cursor.execute('INSERT INTO consists_of_exercise (workout_id, exercise_id, set_count, repetition) VALUES (%s, %s, %s, %s)', (workout_id, exercise_id, sets, reps))
     
     connection.commit()
