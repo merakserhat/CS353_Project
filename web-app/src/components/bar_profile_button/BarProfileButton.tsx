@@ -21,7 +21,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ name, email }) => {
         <Link to="/profile" style={{ textDecoration: "none", color: "inherit" }}>
             <Button variant="contained" color="primary" sx={{ margin: "10px" }} startIcon={<AccountCircleIcon sx={{ width: "32px", height: "32px" }} />} >
                 <Stack direction="column" spacing={0} >
-                    <Typography variant="h6" style={{ marginRight: 'auto' }}>{name}</Typography>
+                    <Typography variant="h6" style={{ marginRight: 'auto' }}>{truncateEmail(name, 15)}</Typography>
                     <Typography variant="subtitle2">{truncateEmail(email, 20)}</Typography>
                 </Stack>
             </Button>

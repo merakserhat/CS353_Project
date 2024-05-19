@@ -19,33 +19,32 @@ const menuItems = [
 
 function HomePage() {
     const [selectedMenu, setSelectedMenu] = React.useState<string>(menuItems[0]);
-    const { setExercises } = React.useContext(GlobalContext);
+    const { setExercises, user} = React.useContext(GlobalContext);
 
 
     React.useEffect(() => {
-        // postLoginFe("serhat", "12345");
+        console.log("user", user);
         const getData = async () => {
             // const response: ApiResponse<any> = await postLoginTrainer("orhunaysan3b@gmail.com", "password1");
             // console.log(response.data.user_id);
 
             const exerciseList: ApiResponse<ExerciseModel[]> = await getExerciseList();
             setExercises(exerciseList.data);
-            console.log("exercise", exerciseList.data);
 
             // const response: ApiResponse<ExerciseLogModel[]> = await getExerciseLogList("3");
             // console.log("exercise", response.data[0]);
 
-            const response: ApiResponse<RegisterModel> = await postRegsiterFe("sdgsdg@example.com",
-                "password123",
-                "mal",
-                "ege",
-                "karaahmet",
-                "70",
-                "165",
-                "31",
-                "orta");
+            // const response: ApiResponse<RegisterModel> = await postRegsiterFe("sdgsdg@example.com",
+            //     "password123",
+            //     "mal",
+            //     "ege",
+            //     "karaahmet",
+            //     "70",
+            //     "165",
+            //     "31",
+            //     "orta");
 
-            console.log(response.data.user?.gender);
+            // console.log(response.data.user?.gender);
         }
 
         getData();

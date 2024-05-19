@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 const LogoutButton: React.FC = () => {
-    const { setUserId } = useContext(GlobalContext);
+    const { setUser } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        setUserId(undefined);
+        setUser(undefined);
         navigate('/login');
     };
 

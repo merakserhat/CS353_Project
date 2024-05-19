@@ -12,8 +12,8 @@ import { GlobalProvider } from "./data/context/GlobalProvider.tsx";
 
 function App() {
   return (
-    <ThemeProvider theme={Theme} >
-      <GlobalProvider>
+    <GlobalProvider>
+      <ThemeProvider theme={Theme} >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -25,8 +25,8 @@ function App() {
             <Route path="/create/workout" element={<CreateWorkoutPage />} />
           </Routes>
         </BrowserRouter>
-      </GlobalProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </GlobalProvider>
   );
 }
 

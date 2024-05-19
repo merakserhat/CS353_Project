@@ -123,7 +123,7 @@ function WorkoutCard() {
                                 return (
                                     <Box margin={"12px 0"}>
                                         <Typography variant="body1">
-                                            {(index + 1) + ". " + exercise.name}
+                                            {(index + 1) + ". " + exercise.data?.exercise_name}
                                         </Typography>
                                         <Typography variant="body2" marginLeft={"20px"} sx={{ color: "#a1a1a1" }}>
                                             {exercise.sets + "x" + exercise.reps}

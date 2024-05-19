@@ -14,6 +14,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SportWomen from '../../assets/sport_women.png';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { postRegsiterFe } from '../../data/network/Network';
+import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 
 function Copyright(props: any) {
@@ -34,14 +37,69 @@ const defaultTheme = createTheme();
 
 function RegisterPage() {
     const [gender, setGender] = React.useState<string>('');
+    const navigate = useNavigate();
+    const { setUser } = React.useContext(GlobalContext);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const email = data.get('email') as string;
+        const password = data.get('password') as string;
+        const passwordAgain = data.get('password-again') as string;
+        const name = data.get('name') as string;
+        const surname = data.get('surname') as string;
+        const height = data.get('height') as string;
+        const weight = data.get('weight') as string;
+
+
         console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+            email,
+            password,
+            passwordAgain,
+            name,
+            surname,
+            height,
+            weight});
+
+            if (!email || !password || !passwordAgain || !name || !surname || !height || !weight || !gender) {
+                alert("Please fill all fields!")
+            }
+
+            if (password !== passwordAgain) {
+                // alert("Passwords do not match!")
+                return;
+            }
+
+            // if (password.length < 8) {
+            //     alert("Password must be at least 8 characters!")
+            //     return;
+            // }
+
+            if (name.length < 5) {
+                alert("Name must be at least 5 characters!")
+                return;
+            }
+
+            if (+height < 100) {
+                alert("Height must be at least 100 cm!")
+                return;
+            }
+
+            if (+weight < 40) {
+                alert("Weight must be at least 40 kg!")
+                return; 
+            }
+
+            const result: ApiResponse<RegisterModel> = await postRegsiterFe(email, password, name, "",  surname, weight, height, "18", gender);
+
+            if (result.status === 200) {
+                setUser(result.data.user);
+                navigate('/');
+            } else {
+                alert(result.data.message);
+            }
+
     };
 
     const handleChange = (event: any) => {
@@ -74,9 +132,19 @@ function RegisterPage() {
                                 required
                                 fullWidth
                                 id="name"
-                                label="Name Surname"
+                                label="Name"
                                 name="name"
                                 autoComplete="name"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="surname"
+                                label="Surname"
+                                name="surname"
+                                autoComplete="surname"
                                 autoFocus
                             />
                             <TextField
@@ -102,7 +170,7 @@ function RegisterPage() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="password"
+                                name="password-again"
                                 label="Password Again"
                                 type="password"
                                 id="password-again"

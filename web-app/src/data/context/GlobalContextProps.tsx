@@ -4,8 +4,8 @@ interface GlobalContextProps {
     globalVariable: string;
     setGlobalVariable: (value: string) => void;
     //////////////////////////////////////////
-    userId?: string;
-    setUserId: (value: string | undefined) => void;
+    user?: UserModel;
+    setUser: (value: UserModel | undefined) => void;
     //////////////////////////
     exercises?: ExerciseModel[]
     setExercises: (value: ExerciseModel[] | undefined) => void;
@@ -14,7 +14,7 @@ interface GlobalContextProps {
 const defaultValue: GlobalContextProps = {
     globalVariable: 'initialValue',
     setGlobalVariable: () => {},
-    setUserId: () => {},
+    setUser: () => {},
     setExercises: () => {},
 };
 

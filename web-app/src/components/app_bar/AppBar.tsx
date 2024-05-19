@@ -10,6 +10,7 @@ import ProfileButton from '../bar_profile_button/BarProfileButton';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import { Button } from '@mui/material';
+import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -53,6 +54,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function MainAppBar() {
+    const {user} = React.useContext(GlobalContext);
+    console.log(user);
+
     const navigate = useNavigate();
 
     const handleCreateWorkout = () => {
@@ -89,7 +93,7 @@ export default function MainAppBar() {
         >
             Create
         </Button>
-                <ProfileButton name='Serhat' email='serhat.merak@ug.bilkent.edu.tr' />
+                {user ? <ProfileButton name={user.first_name + user.last_name} email={user.email} /> : null }
                 <LogoutButton />
             </Toolbar>
         </AppBar>

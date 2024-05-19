@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 
 export async function postLoginFe(email: string, password: string): Promise<ApiResponse<any>> {
     try {
-        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<any>>("/user/login/fe", { email, password });
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<LoginModel>>("/user/login/fe", { email, password });
 
         return result;
     } catch (error: any) {

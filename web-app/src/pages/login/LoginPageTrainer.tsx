@@ -13,9 +13,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SportMan from '../../assets/sport_man.png';
-import { postLoginFe } from '../../data/network/Network';
-import { GlobalContext } from '../../data/context/GlobalContextProps';
-import { useNavigate } from 'react-router-dom';
 
 
 function Copyright(props: any) {
@@ -34,29 +31,14 @@ function Copyright(props: any) {
 // // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-function LoginPage() {
-    const {setUser} = React.useContext(GlobalContext);
-    const navigate = useNavigate();
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+function LoginPageTrainer() {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get('email') as string;
-        const password = data.get('password') as string;
-
-        const result: ApiResponse<LoginModel> = await postLoginFe(email, password);
-        console.log(result);
-
-        if (result.data.user) {
-            console.log("Login successful");
-            console.log(result.data.user);
-            setUser(result.data.user);
-            navigate('/');
-
-        } else {
-            alert("Login failed");
-        }
-
+        console.log({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
     };
 
     return (
@@ -158,4 +140,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage
+export default LoginPageTrainer
