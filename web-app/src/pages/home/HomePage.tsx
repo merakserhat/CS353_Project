@@ -8,7 +8,7 @@ import MultipleMenuSelector from '../../components/multiple_menu_selector/Multip
 import TrainerCard from '../../components/trainer_card/TrainerCard';
 import WorkoutCard from '../../components/workout_card/WorkoutCard';
 import DietCard from '../../components/diet_card/DietCard';
-import { getExerciseList, getExerciseLogList, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
+import { getExerciseList, getExerciseLogList, getFitnessGoals, postCreateGoal, postLoginFe, postLoginTrainer, postRegsiterFe } from '../../data/network/Network';
 import { GlobalContext } from '../../data/context/GlobalContextProps';
 
 const menuItems = [
@@ -45,6 +45,12 @@ function HomePage() {
             //     "orta");
 
             // console.log(response.data.user?.gender);
+
+            // const response: ApiResponse<GoalModel> = await postCreateGoal("4","asd","ads",100,10);
+            // console.log(response.data.duration);
+
+            // const response: ApiResponse<GoalModel> = await getFitnessGoals("4");
+            // console.log(response.data.duration);
         }
 
         getData();

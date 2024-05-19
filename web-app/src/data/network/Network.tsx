@@ -64,4 +64,27 @@ export async function getExerciseLogList(feId: string): Promise<ApiResponse<any>
     }
 }
 
+export async function postCreateGoal(feId: string, name: string, target_region: string, calorie: number, duration: number): Promise<ApiResponse<any>> {
+    try {
+        // console.log("em", email)
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<GoalModel>>("/fitness_goal/create", { feId, name, target_region, calorie, duration });
+        console.log(result)
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function getFitnessGoals(feId: string): Promise<ApiResponse<any>> {
+    try {
+        const result = await axiosInstance.get<ApiResponse<GoalModel>>(`/fitness_goal/list?fe_id=${feId}`);
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        console.log("feid", feId);
+        console.log("snnnan", error);
+        return error.response;
+    }
+}
+
 export default axiosInstance;
