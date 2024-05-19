@@ -148,10 +148,17 @@ def system():
     ''')
     avg_exercises = cursor.fetchone()
 
+
+
+    cursor.execute('SELECT * FROM MostPopularExercise')
+    most_popular_exercise = cursor.fetchall()
+
     cursor.close()
+
 
     return jsonify({
         'message': 'System report generated!',
         'calorie_intake': calorie_intake,
-        'avg_exercises': avg_exercises['avg_exercises']
+        'avg_exercises': avg_exercises['avg_exercises'],
+        'most_popular_exercise': most_popular_exercise,
     })

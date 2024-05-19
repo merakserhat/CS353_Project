@@ -477,3 +477,12 @@ CREATE TRIGGER increment_trainer_rating AFTER UPDATE ON TrainerSession
            END IF;
        END;//
 delimiter 
+
+
+CREATE VIEW MostPopularExercise AS
+SELECT e.exercise_id, exercise_name, COUNT(*) AS count
+FROM WorkoutLog wl, consists_of_exercise ce, Exercise e
+WHERE wl.workout_id = ce.workout_id AND ce.exercise_id = e.exercise_id
+GROUP BY exercise_id
+ORDER BY count DESC
+LIMIT 1;
