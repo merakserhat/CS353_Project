@@ -9,6 +9,9 @@ interface GlobalContextProps {
     //////////////////////////
     exercises?: ExerciseModel[]
     setExercises: (value: ExerciseModel[]) => void;
+    //////////////////////////
+    nutritions?: NutritionModel[]
+    setNutritions: (value: NutritionModel[]) => void;
 }
 
 const defaultValue: GlobalContextProps = {
@@ -16,6 +19,7 @@ const defaultValue: GlobalContextProps = {
     setGlobalVariable: () => {},
     setUser: () => {},
     setExercises: () => {},
+    setNutritions: () => {}
 };
 
 export const GlobalContext = createContext<GlobalContextProps>(defaultValue);

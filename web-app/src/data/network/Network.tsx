@@ -103,6 +103,40 @@ export async function postCreateWorkoutFe(fe_id: string, name: string, audience:
     }
 }
 
+export async function postCreateNutritionFe(fe_id: string, name: string, description: string, nutritionsIds: {nut_id: string, portion: number}[]): Promise<ApiResponse<any>> {
+    try {
+        const data = { fe_id, name, description, nutritions: nutritionsIds };
+        console.log("data", data);
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<{nutrition_plan: NutritionPlanModel}>>("/nutrition_plan/create", data);
+        console.log(result)
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function deleteNutrition(plan_id: string): Promise<ApiResponse<any>> {
+    try {
+        const result: ApiResponse<any> = await axiosInstance.post<ApiResponse<{nutrition_plan: NutritionPlanModel}>>("/nutrition_plan/delete", {plan_id});
+        console.log(result)
+        return result;
+    } catch (error: any) {
+        return error.response;
+    }
+}
+
+export async function getNutritionList(feId: string): Promise<ApiResponse<any>> {
+    try {
+        const result = await axiosInstance.get<ApiResponse<{nutrition_plans: NutritionPlanModel[]}>>(`/nutrition_plan/list?fe_id=${feId}`);
+        console.log(result);
+        return result;
+    } catch (error: any) {
+        console.log("feid", feId);
+        console.log("snnnan", error);
+        return error.response;
+    }
+}
+
 export async function postCreateWorkoutTr(trainer_id: string, name: string, audience: string, description: string, exercises: KeepsExerciseModel[]): Promise<ApiResponse<any>> {
     try {
         // console.log("em", email)
