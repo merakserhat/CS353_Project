@@ -186,8 +186,7 @@ CREATE TABLE WorkoutSession (
     name VARCHAR(50),
     audience VARCHAR(20),
     description VARCHAR(255),
-    PRIMARY KEY(workout_id, trainer_id),
-    FOREIGN KEY(trainer_id) references Trainer(trainer_id)
+    PRIMARY KEY(workout_id)
 );
 
 CREATE TABLE has_workout (
@@ -199,24 +198,14 @@ CREATE TABLE has_workout (
     FOREIGN KEY(workout_id) references WorkoutSession(workout_id)
 );
 
-CREATE TABLE keeps_workout (
-    workout_id VARCHAR(36) NOT NULL,
-    fe_id VARCHAR(36),
-    trainer_id VARCHAR(36),
-    workoutlog_id VARCHAR(36) NOT NULL,
-    PRIMARY KEY(workout_id, fe_id, trainer_id, workoutlog_id),
-    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id),
-    FOREIGN KEY(workoutlog_id, fe_id) references WorkoutLog(workoutlog_id, fe_id)
-);
-
 CREATE TABLE consists_of_exercise (
     workout_id VARCHAR(36),
     trainer_id VARCHAR(36),
     exercise_id VARCHAR(36),
     set_count INT,
     repetition INT,
-    PRIMARY KEY(workout_id, trainer_id, exercise_id),
-    FOREIGN KEY(workout_id, trainer_id) references WorkoutSession(workout_id, trainer_id),
+    PRIMARY KEY(workout_id, exercise_id),
+    FOREIGN KEY(workout_id) references WorkoutSession(workout_id),
     FOREIGN KEY(exercise_id) references Exercise(exercise_id)
 );
 
